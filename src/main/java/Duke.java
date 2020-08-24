@@ -27,21 +27,26 @@ public class Duke {
     // Main function. Main event loop happens here.
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
+        TaskList todoList = new TaskList();
 
         String[] greeting = {"Hello! I'm Duke", "What can I do for you?"};
         reply(greeting);
 
         // Main event loop!
-        String userInput;
-        while (true) {
+        String userInput = "";
+        while (!userInput.toLowerCase().equals("bye")) {
             userInput = scan.nextLine();
-            if (userInput.toLowerCase().equals("bye")) {
-                stop();
-                break; // Exit condition is here...
-            }
 
-            // and everything else is below here.
-            reply(userInput);
+            switch(userInput.toLowerCase()) {
+            case "bye": // Exit condition is here
+                stop();
+                break;
+            case "list": // List all tasks
+                reply(todoList.listTasks());
+                break;
+            default: // Add a task to the task list
+                reply(todoList.addTask(userInput));
+            }
         }
 
     }
