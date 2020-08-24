@@ -1,7 +1,7 @@
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Duke {
-
     // Indents and wraps all of Duke's replies in the --- bars.
     // Has a single line version...
     private static void reply(String response) {
@@ -34,15 +34,31 @@ public class Duke {
 
         // Main event loop!
         String userInput = "";
-        while (!userInput.toLowerCase().equals("bye")) {
+        String[] commandArray;
+        String command = "";
+        String arguments[];
+        while (!userInput.split(" ")[0].toLowerCase().equals("bye")) {
             userInput = scan.nextLine();
 
-            switch(userInput.toLowerCase()) {
+            // Breaking down the user input into command and arguments...
+            commandArray = userInput.split(" ");
+            command = commandArray[0].toLowerCase();
+            if (commandArray.length > 1) {
+                arguments = Arrays.copyOfRange(commandArray, 1,commandArray.length);
+            } else {
+                arguments = new String[]{null};
+            }
+
+
+            switch(command) {
             case "bye": // Exit condition is here
                 stop();
                 break;
             case "list": // List all tasks
                 reply(todoList.listTasks());
+                break;
+            case "done": // Complete a task
+                reply(todoList.completeTask(arguments[0]));
                 break;
             default: // Add a task to the task list
                 reply(todoList.addTask(userInput));
