@@ -26,17 +26,21 @@ public class Duke {
 
     // Main function. Main event loop happens here.
     public static void main(String[] args) {
+        // Initialisation of important objects
         Scanner scan = new Scanner(System.in);
         TaskList todoList = new TaskList();
 
-        String[] greeting = {"Hello! I'm Duke", "What can I do for you?"};
-        reply(greeting);
+        // Start with a greeting...
+        String[] greetings = {"Hello! I'm Duke", "What can I do for you?"};
+        reply(greetings);
 
-        // Main event loop!
+        // Variables for the main event loop.
         String userInput = "";
         String[] commandArray;
         String command = "";
         String arguments[];
+
+        // Main event loop!
         while (!userInput.split(" ")[0].toLowerCase().equals("bye")) {
             userInput = scan.nextLine();
 

@@ -2,24 +2,24 @@ public class Task {
     private String name;
     private boolean isDone;
 
-    Task(String name){
-        this.name = name;
-        this.isDone = false;
+    public Task(String newName){
+        name = newName;
+        isDone = false;
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public boolean getDone() {
-        return this.isDone;
+        return isDone;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String newName) {
+        name = newName;
     }
 
-    public void complete(){
-        this.isDone = true;
+    public void setDone(){
+        isDone = true;
     }
 }
