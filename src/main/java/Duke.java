@@ -1,21 +1,17 @@
-import java.util.Scanner;
-import java.util.Arrays;
-
 public class Duke {
-    // Indents and wraps all of Duke's replies in the --- bars.
+    protected static String REPLY_BAR = "%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%";
+    // Indents and wraps all of Duke's replies in the bars.
     // Has a single line version...
     private static void reply(String response) {
-        String bar = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n";
-        System.out.println(bar + " >>> " + response + "\n" + bar);
+        System.out.println("\n" + REPLY_BAR + "\n >>> " + response + "\n" + REPLY_BAR + "\n");
     }
     // and a multiline version as well.
     private static void reply(String[] responses) {
-        String bar = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n";
-        System.out.println(bar);
+        System.out.println("\n" + REPLY_BAR);
         for (String eachResponse : responses) {
-            System.out.println(" " + eachResponse + "\n");
+            System.out.println(" >>> " + eachResponse);
         }
-        System.out.println(bar);
+        System.out.println(REPLY_BAR+"\n");
     }
 
     // Gracefully shuts down Duke.
@@ -25,47 +21,46 @@ public class Duke {
     }
 
     // Main function. Main event loop happens here.
+    // The Parser instance is used to get user input and it returns a Command object.
+    // The Command object, which stores information from the user in an accessible interface,
+    // is then used to pass information to the switch statement that holds the command logic.
     public static void main(String[] args) {
-        // Initialisation of important objects
-        Scanner scan = new Scanner(System.in);
-        TaskList todoList = new TaskList();
-
-        // Start with a greeting...
         String[] greetings = {"Hello! I'm Duke", "What can I do for you?"};
         reply(greetings);
 
-        // Variables for the main event loop.
-        String userInput = "";
-        String[] commandArray;
-        String command = "";
-        String arguments[];
+        TaskList taskList = new TaskList();
+        Parser parser = new Parser();
+        boolean endLoop = false;
+        Command latestCommand;
 
-        // Main event loop!
-        while (!userInput.split(" ")[0].toLowerCase().equals("bye")) {
-            userInput = scan.nextLine();
+        // MAIN EVENT LOOP:
+        while (!endLoop) {
+            parser.getUserInput();
+            latestCommand = parser.parseCommand();
+            // DEBUG:
+            // latestCommand.debug();
 
-            // Breaking down the user input into command and arguments...
-            commandArray = userInput.split(" ");
-            command = commandArray[0].toLowerCase();
-            if (commandArray.length > 1) {
-                arguments = Arrays.copyOfRange(commandArray, 1,commandArray.length);
-            } else {
-                arguments = new String[]{null};
-            }
-
-
-            switch(command) {
+            // SWITCH: Handles the latest command.
+            // The functions in other classes are written to return neat strings so that they can be wrapped by the
+            // 'reply' function. This is to shove all formatting logic into the functions to keep things neat here.
+            switch(latestCommand.getCommand()) {
             case "bye": // Exit condition is here
                 stop();
+                endLoop = true;
                 break;
             case "list": // List all tasks
-                reply(todoList.listTasks());
+                reply(taskList.listTasks());
                 break;
             case "done": // Complete a task
-                reply(todoList.completeTask(arguments[0]));
+                reply(taskList.completeTask(latestCommand.getArgument(0)));
                 break;
-            default: // Add a task to the task list
-                reply(todoList.addTask(userInput));
+            case "todo": // Add a task to the task list
+            case "deadline": // Add a task to the task list
+            case "event": // Add a task to the task list
+                reply(taskList.addTask(latestCommand));
+                break;
+            default:
+                reply("Invalid!");
             }
         }
 

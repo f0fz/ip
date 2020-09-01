@@ -7,16 +7,27 @@ public class TaskList {
         taskCount = 0;
     }
 
-    // Adds task to taskList
-    public String addTask(String taskName) {
-        if (taskName.equals("")){
-            return "Can't add a blank line to the task list!";
-        } else {
-            taskList[taskCount] = new Task(taskName);
-            taskCount++;
-            return "Added: " + taskName;
-        }
+    // Adds task to taskList using the Command object
+    public String addTask(Command command) {
+        // First argument will always be the description of the task
+        String taskName = command.getArgument(0).trim();
+        // Extra argument for Deadline and Event
+        String extraArg;
 
+        switch(command.getCommand().toLowerCase()) {
+        case "todo":
+            taskList[taskCount] = new Todo(taskName);
+            break;
+        case "deadline":
+            extraArg = command.getArgument(1).substring(3); // removing the "by "
+            taskList[taskCount] = new Deadline(taskName, extraArg);
+            break;
+        case "event":
+            extraArg = command.getArgument(1).substring(3); // removing the "at "
+            taskList[taskCount] = new Event(taskName, extraArg);
+        }
+        taskCount++;
+        return "Added: " + taskName;
     }
 
     // Returns a string indicating completion of the task.
@@ -31,7 +42,7 @@ public class TaskList {
             return new String[]{"This task is already complete!", "Did you perhaps mean another task?"};
         } else {
             taskList[taskID-1].setDone();
-            return new String[]{"I've marked this task as done:", "[✓] " + taskList[taskID-1].getName()};
+            return new String[]{"I've marked this task as done:", "[\u2713] " + taskList[taskID-1].getName()};
         }
     }
 
@@ -41,15 +52,11 @@ public class TaskList {
         outputList[0] = "Here are the tasks in your list:";
 
         Task eachTask;
-        String taskName;
-        String checkbox;
 
-        // Start from 1, since index 0 if outputList is occupied
+        // Start from 1, since index 0 of outputList is occupied
         for (int i = 1; i <= taskCount; i++) {
-            eachTask = taskList[i];
-            taskName = eachTask.getName();
-            checkbox = eachTask.getDone() ? "[✓] " : "[✗] ";
-            outputList[i] = Integer.toString(i) + ". " + checkbox + taskName;
+            eachTask = taskList[i-1];
+            outputList[i] = i + ". " + eachTask.toString();
         }
         return outputList;
     }

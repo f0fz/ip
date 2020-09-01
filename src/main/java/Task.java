@@ -1,6 +1,6 @@
 public class Task {
-    private String name;
-    private boolean isDone;
+    protected String name;
+    protected boolean isDone;
 
     public Task(String newName){
         name = newName;
@@ -21,5 +21,13 @@ public class Task {
 
     public void setDone(){
         isDone = true;
+    }
+
+    public String getCheck() {
+        return isDone ? "[\u2713]" : "[\u2717]";
+    }
+
+    public String toString(String token) {
+        return token + getCheck() + " " + name;
     }
 }
