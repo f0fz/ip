@@ -1,0 +1,12 @@
+test
+todo wah
+deadline yee /by tomorrow
+event haw /at today-tomorrow
+list
+done 1
+list
+done 2
+list
+done 3
+list
+bye

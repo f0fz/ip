@@ -12,15 +12,24 @@ then
     rm ACTUAL.TXT
 fi
 
+# check for EXPECTED.TXT
+if [ ! -e "./EXPECTED.TXT" ]
+then
+    echo "********** EXPECTED DOES NOT EXIST **********"
+    exit 1
+fi
+
 # compile the code into the bin folder, terminates if error occurred
-if ! javac -cp ../src -Xlint:none -d ../bin ../src/main/java/Duke.java
+if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/Duke.java
 then
     echo "********** BUILD FAILURE **********"
     exit 1
 fi
 
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ../bin Duke < input.txt > ACTUAL.TXT
+cd ../out/production/ip
+java Duke < ../../../text-ui-test/input.txt > ../../../text-ui-test/ACTUAL.TXT
+cd ../../../text-ui-test
 
 # convert to UNIX format
 cp EXPECTED.TXT EXPECTED-UNIX.TXT
