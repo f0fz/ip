@@ -34,6 +34,8 @@ public class Duke {
             // DEBUG:
             // latestCommand.debug();
 
+            Exception err = null; // To hold any exceptions that occur
+
             // SWITCH: Handles the latest command.
             // The functions in other classes are written to return neat strings so that they can be wrapped by the
             // 'reply' function. This is to shove all formatting logic into the functions to keep things neat here.

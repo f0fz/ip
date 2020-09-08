@@ -1,6 +1,7 @@
 package duke.task;
 
 import duke.util.Command;
+import duke.util.DukeException;
 
 public class TaskList {
     private Task[] taskList;
@@ -43,6 +44,9 @@ public class TaskList {
         }
 
         int taskID = Integer.parseInt(taskIDString);
+        if (taskID > taskCount - 1) {
+            return new String[] {"Task ID greater than task count!", "Current task count: " + taskCount};
+        }
         if (taskList[taskID-1].getDone()) {
             return new String[]{"This task is already complete!", "Did you perhaps mean another task?"};
         } else {
