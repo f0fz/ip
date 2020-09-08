@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.util.Command;
+
 public class TaskList {
     private Task[] taskList;
     private int taskCount;
@@ -48,7 +52,7 @@ public class TaskList {
     }
 
     // Returns a string array of all the tasks to be done
-    public String[] listTasks() {
+    public String[] showTaskList() {
         String[] outputList = new String[taskCount + 1];
         outputList[0] = "Here are the tasks in your list:";
 

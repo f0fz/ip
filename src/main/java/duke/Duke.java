@@ -1,5 +1,12 @@
+package duke;
+
+import duke.util.Command;
+import duke.util.Parser;
+import duke.task.TaskList;
+
 public class Duke {
-    protected static String REPLY_BAR = "%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%";
+    protected static String REPLY_BAR = "――――――――――――――――――――――――――――――――――――――――――";
+
     // Indents and wraps all of Duke's replies in the bars.
     // Has a single line version...
     private static void reply(String response) {
@@ -11,14 +18,16 @@ public class Duke {
         for (String eachResponse : responses) {
             System.out.println(" >>> " + eachResponse);
         }
-        System.out.println(REPLY_BAR+"\n");
+        System.out.println(REPLY_BAR + "\n");
     }
+
 
     // Gracefully shuts down Duke.
     // Doesn't do much now, but I'm guessing there will be file IO next time?
     private static void stop() {
         reply("Bye. Hope to see you again soon!");
     }
+
 
     // Main function. Main event loop happens here.
     // The Parser instance is used to get user input and it returns a Command object.
@@ -49,18 +58,20 @@ public class Duke {
                 endLoop = true;
                 break;
             case "list": // List all tasks
-                reply(taskList.listTasks());
+                reply(taskList.showTaskList());
                 break;
             case "done": // Complete a task
                 reply(taskList.completeTask(latestCommand.getArgument(0)));
                 break;
             case "todo": // Add a task to the task list
+                // FALLTHROUGH
             case "deadline": // Add a task to the task list
+                // FALLTHROUGH
             case "event": // Add a task to the task list
                 reply(taskList.addTask(latestCommand));
                 break;
             default:
-                reply("Invalid!");
+                reply("Invalid command! Please try again...");
             }
         }
 
