@@ -4,24 +4,9 @@ import duke.util.Command;
 import duke.util.Parser;
 import duke.task.TaskList;
 
+import static duke.util.UI.reply;
+
 public class Duke {
-    protected static String REPLY_BAR = "――――――――――――――――――――――――――――――――――――――――――";
-
-    // Indents and wraps all of Duke's replies in the bars.
-    // Has a single line version...
-    private static void reply(String response) {
-        System.out.println("\n" + REPLY_BAR + "\n >>> " + response + "\n" + REPLY_BAR + "\n");
-    }
-    // and a multiline version as well.
-    private static void reply(String[] responses) {
-        System.out.println("\n" + REPLY_BAR);
-        for (String eachResponse : responses) {
-            System.out.println(" >>> " + eachResponse);
-        }
-        System.out.println(REPLY_BAR + "\n");
-    }
-
-
     // Gracefully shuts down Duke.
     // Doesn't do much now, but I'm guessing there will be file IO next time?
     private static void stop() {

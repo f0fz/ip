@@ -1,5 +1,8 @@
 package duke.task;
 
+import static duke.util.UI.tick;
+import static duke.util.UI.cross;
+
 public class Task {
     protected String name;
     protected boolean isDone;
@@ -26,7 +29,7 @@ public class Task {
     }
 
     public String getCheck() {
-        return isDone ? "[\u2713]" : "[\u2717]";
+        return isDone ? "["+ tick +"]" : "["+ cross +"]";
     }
 
     public String toString(String token) {
