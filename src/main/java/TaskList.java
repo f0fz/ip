@@ -8,7 +8,7 @@ public class TaskList {
     }
 
     // Adds task to taskList using the Command object
-    public String addTask(Command command) {
+    public String[] addTask(Command command) {
         // First argument will always be the description of the task
         String taskName = command.getArgument(0).trim();
         // Extra argument for Deadline and Event
@@ -27,7 +27,8 @@ public class TaskList {
             taskList[taskCount] = new Event(taskName, extraArg);
         }
         taskCount++;
-        return "Added: " + taskName;
+        return new String[] {"Added: " + taskList[taskCount-1].toString(),
+                             "Now you have " + Integer.toString(taskCount) + " tasks."};
     }
 
     // Returns a string indicating completion of the task.
@@ -42,7 +43,7 @@ public class TaskList {
             return new String[]{"This task is already complete!", "Did you perhaps mean another task?"};
         } else {
             taskList[taskID-1].setDone();
-            return new String[]{"I've marked this task as done:", "[\u2713] " + taskList[taskID-1].getName()};
+            return new String[]{"I've marked this task as done:", taskList[taskID-1].toString()};
         }
     }
 
