@@ -1,24 +1,18 @@
-public class Duke {
-    protected static String REPLY_BAR = "%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%";
-    // Indents and wraps all of Duke's replies in the bars.
-    // Has a single line version...
-    private static void reply(String response) {
-        System.out.println("\n" + REPLY_BAR + "\n >>> " + response + "\n" + REPLY_BAR + "\n");
-    }
-    // and a multiline version as well.
-    private static void reply(String[] responses) {
-        System.out.println("\n" + REPLY_BAR);
-        for (String eachResponse : responses) {
-            System.out.println(" >>> " + eachResponse);
-        }
-        System.out.println(REPLY_BAR+"\n");
-    }
+package duke;
 
+import duke.util.Command;
+import duke.util.Parser;
+import duke.task.TaskList;
+
+import static duke.util.UI.reply;
+
+public class Duke {
     // Gracefully shuts down Duke.
     // Doesn't do much now, but I'm guessing there will be file IO next time?
     private static void stop() {
         reply("Bye. Hope to see you again soon!");
     }
+
 
     // Main function. Main event loop happens here.
     // The Parser instance is used to get user input and it returns a Command object.
@@ -40,6 +34,8 @@ public class Duke {
             // DEBUG:
             // latestCommand.debug();
 
+            Exception err = null; // To hold any exceptions that occur
+
             // SWITCH: Handles the latest command.
             // The functions in other classes are written to return neat strings so that they can be wrapped by the
             // 'reply' function. This is to shove all formatting logic into the functions to keep things neat here.
@@ -49,18 +45,20 @@ public class Duke {
                 endLoop = true;
                 break;
             case "list": // List all tasks
-                reply(taskList.listTasks());
+                reply(taskList.showTaskList());
                 break;
             case "done": // Complete a task
                 reply(taskList.completeTask(latestCommand.getArgument(0)));
                 break;
             case "todo": // Add a task to the task list
+                // FALLTHROUGH
             case "deadline": // Add a task to the task list
+                // FALLTHROUGH
             case "event": // Add a task to the task list
                 reply(taskList.addTask(latestCommand));
                 break;
             default:
-                reply("Invalid!");
+                reply("Invalid command! Please try again...");
             }
         }
 
