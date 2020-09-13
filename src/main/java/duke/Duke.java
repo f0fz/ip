@@ -57,6 +57,9 @@ public class Duke {
             case "event": // Add a task to the task list
                 reply(taskList.addTask(latestCommand));
                 break;
+            case "delete":
+                reply(taskList.deleteTask(latestCommand));
+                break;
             default:
                 reply("Invalid command! Please try again...");
             }
