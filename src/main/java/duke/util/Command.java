@@ -40,9 +40,9 @@ public class Command {
     public int getArgCount() {
         return argCount;
     }
+
     // For debug purposes
     public void debug() {
-        System.out.println("Command: " + command);
-        System.out.println("Arguments: " + Arrays.toString(arguments));
+        UI.error(new String[]{"Command breakdown:", "Command: " + command, "Arguments: " + Arrays.toString(arguments)});
     }
 }

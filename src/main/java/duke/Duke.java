@@ -6,6 +6,8 @@ import duke.util.Parser;
 import duke.util.UI;
 import duke.task.TaskList;
 
+import static duke.util.ErrorChecker.verifyCmd;
+
 
 public class Duke {
     // Gracefully shuts down Duke.
@@ -44,8 +46,18 @@ public class Duke {
         while (!endLoop) {
             parser.getInput();
             latestCommand = parser.parseCommand();
+
             // For debugging:
-            // latestCommand.debug();
+            if (UI.getDebugMode()) {
+                latestCommand.debug();
+            }
+
+            try {
+                verifyCmd(latestCommand);
+            } catch (Exception e) {
+                UI.error(e, "Command entered is invalid!");
+                continue;
+            }
 
             // Switch handles all commands
             switch(latestCommand.getCommand()) {
@@ -60,6 +72,10 @@ public class Duke {
                 break;
             case "list": // List all tasks
                 taskList.showTaskList();
+                break;
+            case "debug": // Toggle debug mode
+                UI.toggleDebug();
+                UI.reply("Toggled debug mode to: " + UI.getDebugMode());
                 break;
 
             /////////////////////////////////////////////////////////////////////////
@@ -109,7 +125,7 @@ public class Duke {
             // UNKNOWN COMMAND
             //
             default:
-                UI.error("Invalid command! Please try again...");
+                UI.error("Command not recognised! Please try again...");
             }
         }
 

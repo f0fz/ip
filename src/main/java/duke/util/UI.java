@@ -2,9 +2,21 @@ package duke.util;
 
 public class UI {
     public final static String REPLY_BAR = "――――――――――――――――――――――――――――――――――――――――――";
-    public final static String ERROR_BAR = "!――――――!――――――!――― ERROR ―――!――――――!――――――!";
+    public final static String ERROR_BAR = "!――――――!――――――!――――――!――――――!――――――!――――――!";
+    public final static String DEBUG_BAR = "?――――――?――――――?――――――?――――――?――――――?――――――?";
     public final static char tick = '\u2713';
     public final static char cross = '\u2717';
+
+    public static boolean isDebugMode = false;
+
+    public static boolean getDebugMode() {
+        return isDebugMode;
+    }
+
+    public static void toggleDebug() {
+        isDebugMode = !isDebugMode;
+    }
+
 
     // Indents and wraps all of Duke's replies in the bars.
     // If the response is "SILENCE", then do not print.
@@ -32,32 +44,48 @@ public class UI {
 
     // And same thing for error messages!
     public static void error(Exception e, String errorMsg) {
-        System.out.println("\n" + ERROR_BAR + "\n >>> " + errorMsg);
-        System.out.println(" >>> Java says...\n");
-        e.printStackTrace();
-        System.out.println("\n" + ERROR_BAR + "\n");
+        String BAR = (getDebugMode()) ? DEBUG_BAR : ERROR_BAR;
+        System.out.println("\n" + BAR + "\n >>> " + errorMsg);
+        if (getDebugMode()) {
+            System.out.println(" >>> Debug...");
+            e.printStackTrace();
+        } else {
+            System.out.print(" >>> ");
+            System.out.println(e.getMessage());
+        }
+        System.out.println(BAR + "\n");
     }
 
     public static void error(Exception e, String[] errorMsgs) {
-        System.out.println("\n" + ERROR_BAR);
+        String BAR = (getDebugMode()) ? DEBUG_BAR : ERROR_BAR;
+        System.out.println("\n" + BAR);
         for (String eachMsg : errorMsgs) {
             System.out.println(" >>> " + eachMsg);
         }
-        System.out.println(" >>> Java says...");
-        e.printStackTrace();
-        System.out.println("\n" + ERROR_BAR + "\n");
+
+        if (getDebugMode()) {
+            System.out.println(" >>> Debug...");
+            e.printStackTrace();
+        } else {
+            System.out.println(" >>> ");
+            System.out.print(e.getMessage());
+        }
+        System.out.println(BAR + "\n");
     }
 
     // And again for error messages without exceptions!
     public static void error(String errorMsg) {
-        System.out.println("\n" + ERROR_BAR + "\n >>> " + errorMsg + "\n" + ERROR_BAR + "\n");
+        String BAR = (getDebugMode()) ? DEBUG_BAR : ERROR_BAR;
+        System.out.println("\n" + BAR + "\n >>> " + errorMsg + "\n" + BAR + "\n");
     }
 
     public static void error(String[] errorMsgs) {
-        System.out.println("\n" + ERROR_BAR);
+        String BAR = (getDebugMode()) ? DEBUG_BAR : ERROR_BAR;
+        System.out.println("\n" + BAR);
         for (String eachMsg : errorMsgs) {
             System.out.println(" >>> " + eachMsg);
         }
-        System.out.println(ERROR_BAR + "\n");
+        System.out.println(BAR + "\n");
     }
+
 }
