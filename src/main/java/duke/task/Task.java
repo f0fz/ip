@@ -7,9 +7,9 @@ public class Task {
     protected String name;
     protected boolean isDone;
 
-    public Task(String newName){
-        name = newName;
-        isDone = false;
+    public Task(String newName, boolean isDone){
+        this.name = newName;
+        this.isDone = isDone;
     }
 
     public String getName() {
@@ -34,5 +34,9 @@ public class Task {
 
     public String toString(String token) {
         return token + getCheck() + " " + name;
+    }
+
+    public String toCommand() {
+        return getName();
     }
 }

@@ -9,10 +9,17 @@ done 2
 list
 done 3
 list
+save test
 delete 3
 list
 delete 1
 list
 delete 2
 list
+load test
+load test /YES
+list
+todo can't save /done
+bye
+save test
 bye

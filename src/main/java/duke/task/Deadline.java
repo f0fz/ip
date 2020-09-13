@@ -4,8 +4,8 @@ public class Deadline extends Task {
     protected String token = "[D]";
     protected String by;
 
-    public Deadline(String newName, String by){
-        super(newName);
+    public Deadline(String newName, String by, boolean isDone){
+        super(newName, isDone);
         this.by = by;
     }
 
@@ -20,5 +20,10 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return super.toString("[D]") + " (by: " + by + ")";
+    }
+
+    @Override
+    public String toCommand() {
+        return "deadline " + super.toCommand() + " /by " + by + (isDone ? " /done" : "");
     }
 }
