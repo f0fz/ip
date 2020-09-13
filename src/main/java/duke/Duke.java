@@ -1,16 +1,17 @@
 package duke;
 
 import duke.util.Command;
+import duke.util.IO;
 import duke.util.Parser;
+import duke.util.UI;
 import duke.task.TaskList;
 
-import static duke.util.UI.reply;
 
 public class Duke {
     // Gracefully shuts down Duke.
     // Doesn't do much now, but I'm guessing there will be file IO next time?
     private static void stop() {
-        reply("Bye. Hope to see you again soon!");
+        UI.reply("Bye. Hope to see you again soon!");
     }
 
 
@@ -20,7 +21,7 @@ public class Duke {
     // is then used to pass information to the switch statement that holds the command logic.
     public static void main(String[] args) {
         String[] greetings = {"Hello! I'm Duke", "What can I do for you?"};
-        reply(greetings);
+        UI.reply(greetings);
 
         TaskList taskList = new TaskList();
         Parser parser = new Parser();
@@ -29,36 +30,70 @@ public class Duke {
 
         // MAIN EVENT LOOP:
         while (!endLoop) {
-            parser.getUserInput();
+            parser.getInput();
             latestCommand = parser.parseCommand();
-            // DEBUG:
+            // For debugging:
             // latestCommand.debug();
 
-            Exception err = null; // To hold any exceptions that occur
-
-            // SWITCH: Handles the latest command.
-            // The functions in other classes are written to return neat strings so that they can be wrapped by the
-            // 'reply' function. This is to shove all formatting logic into the functions to keep things neat here.
+            // Switch handles all commands
             switch(latestCommand.getCommand()) {
+
+            /////////////////////////////////////////////////////////////////////////
+            // UTILITIES
+            //
             case "bye": // Exit condition is here
                 stop();
                 endLoop = true;
                 break;
             case "list": // List all tasks
-                reply(taskList.showTaskList());
+                taskList.showTaskList();
                 break;
             case "done": // Complete a task
-                reply(taskList.completeTask(latestCommand.getArgument(0)));
+                taskList.completeTask(latestCommand.getArgument(0));
                 break;
+
+            /////////////////////////////////////////////////////////////////////////
+            // ADDING A NEW TASK
+            //
             case "todo": // Add a task to the task list
                 // FALLTHROUGH
             case "deadline": // Add a task to the task list
                 // FALLTHROUGH
             case "event": // Add a task to the task list
-                reply(taskList.addTask(latestCommand));
+                taskList.addTask(latestCommand, false); // false for non-silent
                 break;
+
+            /////////////////////////////////////////////////////////////////////////
+            // SAVING AND LOADING
+            //
+            case "save":
+                taskList.saveTasks(latestCommand.getArgument(0));
+                break;
+            case "load":
+                // if there are no tasks or user has already specified /YES to overwrite current tasks,
+                if (taskList.getTaskCount() == 0 ||
+                        (latestCommand.getArgCount() >= 2 &&
+                        latestCommand.getArgument(1).equals("YES"))) {
+
+                    // clear then load tasks
+                    taskList.clearAllTasks();
+                    taskList.loadTasks(latestCommand.getArgument(0));
+                }
+                else {
+                    // else, alert the user
+                    UI.reply(new String[]{"Are you sure? This will replace all your current tasks.",
+                                          "If you're sure, type load <filename> /YES."});
+                }
+                break;
+            case "showsaves":
+                IO.showSaves();
+                break;
+
+            /////////////////////////////////////////////////////////////////////////
+            // UNKNOWN COMMAND
+            //
             default:
-                reply("Invalid command! Please try again...");
+                UI.error("Invalid command! Please try again...");
             }
         }
 

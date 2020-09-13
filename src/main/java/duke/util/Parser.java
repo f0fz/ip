@@ -1,17 +1,40 @@
 package duke.util;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.io.File;
 
 public class Parser {
     // User's input
     protected String input;
-    Scanner scan = new Scanner(System.in);
+    Scanner scan;
 
-    public void getUserInput() {
+
+    public Parser() {
+        scan = new Scanner(System.in);
+    }
+
+
+    public Parser(File f) {
+        try {
+            scan = new Scanner(f);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void getInput() {
         if (scan.hasNextLine()) {
             input = scan.nextLine();
         }
     }
+
+
+    public boolean hasNextLine() {
+        return scan.hasNextLine();
+    }
+
 
     // The main function of the Parser class
     // Uses getUserInput to get the next command.

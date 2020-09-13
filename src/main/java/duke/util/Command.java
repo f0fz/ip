@@ -30,9 +30,17 @@ public class Command {
     }
 
     public String getArgument(int id) {
-        return arguments[id];
+        if (id > argCount-1) {
+            UI.error("Not enough arguments!");
+            return "";
+        } else {
+            return arguments[id];
+        }
     }
 
+    public int getArgCount() {
+        return argCount;
+    }
     // For debug purposes
     public void debug() {
         System.out.println("Command: " + command);

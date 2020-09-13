@@ -4,8 +4,8 @@ public class Event extends Task {
     protected String token = "[E]";
     protected String at;
 
-    public Event(String newName, String at){
-        super(newName);
+    public Event(String newName, String at, boolean isDone){
+        super(newName, isDone);
         this.at = at;
     }
 
@@ -20,5 +20,10 @@ public class Event extends Task {
     @Override
     public String toString() {
         return super.toString("[E]") + " (at: " + at + ")";
+    }
+
+    @Override
+    public String toCommand() {
+        return "event " + super.toCommand() + " /at " + at + (isDone ? " /done" : "");
     }
 }
