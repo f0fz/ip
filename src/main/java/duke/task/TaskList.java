@@ -1,14 +1,15 @@
 package duke.task;
 
 import duke.util.Command;
+import java.util.ArrayList;
 import duke.util.DukeException;
 
 public class TaskList {
-    private Task[] taskList;
+    private ArrayList<Task> taskList;
     private int taskCount;
 
     public TaskList() {
-        taskList = new Task[100];
+        taskList = new ArrayList<>();
         taskCount = 0;
     }
 
@@ -21,19 +22,19 @@ public class TaskList {
 
         switch(command.getCommand().toLowerCase()) {
         case "todo":
-            taskList[taskCount] = new Todo(taskName);
+            taskList.add(new Todo(taskName));
             break;
         case "deadline":
             extraArg = command.getArgument(1).substring(3); // removing the "by "
-            taskList[taskCount] = new Deadline(taskName, extraArg);
+            taskList.add(new Deadline(taskName, extraArg));
             break;
         case "event":
             extraArg = command.getArgument(1).substring(3); // removing the "at "
-            taskList[taskCount] = new Event(taskName, extraArg);
+            taskList.add(new Event(taskName, extraArg));
         }
         taskCount++;
-        return new String[] {"Added: " + taskList[taskCount-1].toString(),
-                             "Now you have " + Integer.toString(taskCount) + " tasks."};
+        return new String[] {"Added: " + taskList.get(taskCount-1).toString(),
+                             "Now you have " + taskCount + " tasks."};
     }
 
     // Returns a string indicating completion of the task.
@@ -44,14 +45,14 @@ public class TaskList {
         }
 
         int taskID = Integer.parseInt(taskIDString);
-        if (taskID > taskCount - 1) {
-            return new String[] {"Task ID greater than task count!", "Current task count: " + taskCount};
+        if (taskID > taskCount) {
+            return new String[] {"No such task", "You only have this many tasks: " + taskCount};
         }
-        if (taskList[taskID-1].getDone()) {
+        if (taskList.get(taskID-1).getDone()) {
             return new String[]{"This task is already complete!", "Did you perhaps mean another task?"};
         } else {
-            taskList[taskID-1].setDone();
-            return new String[]{"I've marked this task as done:", taskList[taskID-1].toString()};
+            taskList.get(taskID-1).setDone();
+            return new String[]{"I've marked this task as done:", taskList.get(taskID-1).toString()};
         }
     }
 
@@ -64,9 +65,23 @@ public class TaskList {
 
         // Start from 1, since index 0 of outputList is occupied
         for (int i = 1; i <= taskCount; i++) {
-            eachTask = taskList[i-1];
+            eachTask = taskList.get(i-1);
             outputList[i] = i + ". " + eachTask.toString();
         }
         return outputList;
+    }
+
+    // Removes a task based on its ID from showTaskList
+    public String[] deleteTask(Command command) {
+        int taskID = Integer.parseInt(command.getArgument(0));
+        if (taskID > taskCount) {
+            return new String[]{"No such task", "You only have this many tasks: " + taskCount};
+        }
+
+        taskCount--;
+
+        Task removedTask = taskList.get(taskID-1);
+        taskList.remove(taskID-1);
+        return new String[]{"Removed the task as requested.", "The task: " + removedTask.toString()};
     }
 }
