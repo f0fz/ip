@@ -8,10 +8,18 @@ import duke.task.TaskList;
 
 import static duke.util.ErrorChecker.verifyCmd;
 
+/**
+ * The main class Duke. Only has Main and Stop methods. The main event loop happens here.
+ */
 
 public class Duke {
-    // Gracefully shuts down Duke.
-    // Doesn't do much now, but I'm guessing there will be file IO next time?
+    /**
+     * Gracefully shuts down Duke. Updates the boolean that tells the main event loop to stop.
+     * Checks if the user has any unsaved changes. If so, it will prevent shutdown unless it's a force quit.
+     * @param hasSaved  boolean check for unsaved changes
+     * @param forceQuit boolean for force quit
+     * @return exit condition of main event loop
+     */
     private static boolean stop(boolean hasSaved, boolean forceQuit) {
         if (!(hasSaved || forceQuit)) {
             UI.reply(new String[]{"Hold on! You have unsaved changes!",
@@ -29,10 +37,14 @@ public class Duke {
     }
 
 
-    // Main function. Main event loop happens here.
-    // The Parser instance is used to get user input and it returns a Command object.
-    // The Command object, which stores information from the user in an accessible interface,
-    // is then used to pass information to the switch statement that holds the command logic.
+    /**
+     * The entry point of application. Main event loop also happens here.
+     * The Parser instance is used to get user input and it returns a Command object.
+     * The Command object, which stores information from the user in an accessible interface,
+     * is then used to pass information to the switch statement that holds the command logic.
+     * @param args the input arguments
+     */
+
     public static void main(String[] args) {
         String[] greetings = {"Hello! I'm Duke", "What can I do for you?"};
         UI.reply(greetings);
@@ -53,7 +65,7 @@ public class Duke {
             }
 
             try {
-                verifyCmd(latestCommand);
+                verifyCmd(latestCommand, taskList.getTaskCount());
             } catch (Exception e) {
                 UI.error(e, "Command entered is invalid!");
                 continue;
@@ -89,7 +101,7 @@ public class Duke {
                 taskList.addTask(latestCommand, false); // false for non-silent
                 break;
             case "delete": // Delete a task
-                taskList.deleteTask(latestCommand);
+                taskList.deleteTask(latestCommand.getArgument(0));
                 break;
             case "done": // Complete a task
                 taskList.completeTask(latestCommand.getArgument(0));

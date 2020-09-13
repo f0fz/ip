@@ -5,44 +5,75 @@ import java.util.ArrayList;
 import duke.util.IO;
 import duke.util.UI;
 
+/**
+ * Represents a list of tasks. No hard limit on number.
+ *
+ * The type TaskList does the heavy lifting of managing all tasks. It's the intermediary of the tasks and the IO,
+ * and there's some big functions in here.
+ *
+ * All tasks are stored in ArrayList taskList, and counted by Integer taskCount.
+ * Boolean hasSaved keeps track of whether there are any unsaved changes.
+ *
+ * ALL ERROR CHECKING IS DONE OUTSIDE THIS CLASS!
+ */
+
 public class TaskList {
     private ArrayList<Task> taskList;
     private int taskCount;
     private boolean hasSaved;
 
+    /**
+     * Instantiates a new Task list.
+     */
     public TaskList() {
         taskList = new ArrayList<>();
         taskCount = 0;
         hasSaved = true;
     }
 
-
-    public int getTaskCount() {
-        return taskCount;
-    }
-
-
-    public void clearAllTasks() {
-        taskList = new ArrayList<>();
-        taskCount = 0;
-        hasSaved = false; // list is edited
-    }
-
-
+    /**
+     * Check whether all changes are saved.
+     *
+     * @return the boolean
+     */
+// Small little functions here
     public boolean checkWhetherSaved() {
         return hasSaved;
     }
 
+    /**
+     * Gets task count.
+     *
+     * @return the task count
+     */
+    public int getTaskCount() {
+        return taskCount;
+    }
 
-    // Adds task to taskList using the Command object
+    /**
+     * Clear all tasks.
+     */
+    public void clearAllTasks() {
+        taskList = new ArrayList<>();
+        taskCount = 0;
+        hasSaved = false; // list is technically edited
+    }
+
+    /**
+     * Adds task to taskList using the Command object.
+     * If silent is true, then do not print a message. This is used mainly for loading from saves.
+     *
+     * @param command the command object itself
+     * @param silent  if true, do not print confirmation that task was added
+     */
     public void addTask(Command command, boolean silent) {
         // First argument will always be the description of the task
         String taskName = command.getArgument(0).trim();
+        // Third argument is optional - isDone
+        boolean isDone = command.getArgument(command.getArgCount()-1).toLowerCase().equals("done");
+
         // Second argument is 'at/by' for Deadline and Event
         String timeArg;
-        // Third argument is optional - isDone
-        boolean isDone = (command.getArgument(command.getArgCount()-1).toLowerCase().equals("done"));
-
         switch(command.getCommand().toLowerCase()) {
         case "todo":
             taskList.add(new Todo(taskName, isDone));
@@ -64,19 +95,15 @@ public class TaskList {
     }
 
 
-    // Returns a string indicating completion of the task.
+    /**
+     * Completes an existing task based on its task ID.
+     *
+     * @param taskIDString the task ID in string form
+     */
+// Returns a string indicating completion of the task.
     // If it's already complete, it will say so by returning the right sentence.
     public void completeTask(String taskIDString) {
-        if (taskIDString == null) {
-            UI.error(new String[]{"You need to specify a task number!","Use list to check."});
-            return;
-        }
-
         int taskID = Integer.parseInt(taskIDString);
-        if (taskID > taskCount) {
-            UI.error(new String[] {"Task ID greater than task count!", "Current task count: " + taskCount});
-            return;
-        }
 
         if (taskList.get(taskID-1).getDone()) {
             UI.reply(new String[]{"This task is already complete!", "Did you perhaps mean another task?"});
@@ -87,7 +114,25 @@ public class TaskList {
         }
     }
 
-    // Returns a string array of all the tasks to be done
+    /**
+     * Deletes an existing task based on its task ID.
+     *
+     * @param taskIDString the task id string
+     */
+// Deletes task based on the task ID given
+    public void deleteTask(String taskIDString) {
+        int taskID = Integer.parseInt(taskIDString);
+        hasSaved = false; // list is edited
+        taskCount--;
+        Task removedTask = taskList.get(taskID-1);
+        taskList.remove(taskID-1);
+        UI.reply(new String[]{"Removed the task as requested.", "The task: " + removedTask.toString()});
+    }
+
+    /**
+     * Shows task list.
+     */
+// Prints all the tasks to be done
     public void showTaskList() {
         if (taskCount == 0) {
             UI.reply("You currently have no tasks.");
@@ -98,7 +143,6 @@ public class TaskList {
         outputList[0] = "Here are the tasks in your list:";
 
         Task eachTask;
-
         // Start from 1, since index 0 of outputList is occupied
         for (int i = 1; i <= taskCount; i++) {
             eachTask = taskList.get(i-1);
@@ -107,6 +151,12 @@ public class TaskList {
         UI.reply(outputList);
     }
 
+    /**
+     * Save tasks to disk to a text file with the given name in directory 'data'. File does not need to exist.
+     *
+     * @param fileName the file name
+     */
+// Saves task to disk based on given file name
     public void saveTasks(String fileName) {
         hasSaved = true; // list is saved!
 
@@ -120,6 +170,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Load tasks from disk from a text file with the given name in directory 'data'. File needs to exist.
+     *
+     * @param fileName the file name
+     */
+// Loads task from disk based on given file name
     public void loadTasks(String fileName) {
         try {
             Command[] commandList = IO.readFile(fileName);
@@ -129,22 +185,7 @@ public class TaskList {
             UI.reply(new String[]{"All tasks loaded!", "Total number of tasks: " + taskCount });
             hasSaved = true; // list is unchanged
         } catch (Exception e) {
-            UI.error(e, "TaskList.loadTasks: Can't read file!");
+            UI.error(e, "Can't read file!");
         }
-    }
-
-    // Removes a task based on its ID from showTaskList
-    public void deleteTask(Command command) {
-        int taskID = Integer.parseInt(command.getArgument(0));
-        if (taskID > taskCount) {
-            UI.error(new String[]{"No such task", "You only have this many tasks: " + taskCount});
-            return;
-        }
-
-        hasSaved = false; // list is edited
-        taskCount--;
-        Task removedTask = taskList.get(taskID-1);
-        taskList.remove(taskID-1);
-        UI.reply(new String[]{"Removed the task as requested.", "The task: " + removedTask.toString()});
     }
 }
