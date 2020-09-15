@@ -115,8 +115,8 @@
 
 
 !――――――!――――――!――――――!――――――!――――――!――――――!
- >>> No such task
- >>> You only have this many tasks: 1
+ >>> Command entered is invalid!
+ >>> delete command arguments not matching: <task ID> (task ID should be in range)
 !――――――!――――――!――――――!――――――!――――――!――――――!
 
 

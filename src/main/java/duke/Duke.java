@@ -80,7 +80,7 @@ public class Duke {
             case "bye": // Exit condition is here
                 // Check whether no changes to save or whether user force quit
                 endLoop = stop(taskList.checkWhetherSaved(),
-                               latestCommand.getArgument(0).equals("/force"));
+                               latestCommand.getArgument(0).equals("force"));
                 break;
             case "list": // List all tasks
                 taskList.showTaskList();

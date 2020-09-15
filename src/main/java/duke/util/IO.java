@@ -114,6 +114,11 @@ public class IO {
      */
     public static void showSaves() {
         String[] saveNames = (new File(DEFAULT_PATH)).list();
+        if (saveNames.length == 0) {
+            UI.reply(new String[] {"No saves found!", "To save your current task list, use 'save <filename>'"});
+            return;
+        }
+
         for (int i = 0; i < saveNames.length; i++) {
             saveNames[i] = saveNames[i].substring(0, saveNames[i].length()-4); // cut out .txt
         }

@@ -170,7 +170,8 @@ public class ErrorChecker {
                     }
                 }
             }
-            throw new DukeException(cmd.getCommand()+ " command arguments not matching: <number>");
+            throw new DukeException(cmd.getCommand() +
+                                    " command arguments not matching: <task ID> (task ID should be in range)");
         default:
             break; // do nothing
         }

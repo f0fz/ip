@@ -77,6 +77,13 @@ public class Parser {
         // e.g. "arg0 /opt1 arg1 /opt2 /opt3 arg3" -> arg0, opt1 arg1, opt2, opt3 arg3
         String[] inputArgs = input.split(" /");
 
+        // Some commands like 'bye /force' have arg0 in the form '/arg0'
+        // If so, remove the '/' at the front
+        if (inputArgs[0].charAt(0) == '/'){
+            inputArgs[0] = inputArgs[0].substring(1);
+        }
+
+
         for (String eachArg : inputArgs) {
             command.addArgument(eachArg);
         }
