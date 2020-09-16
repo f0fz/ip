@@ -9,7 +9,8 @@ import duke.task.TaskList;
 import static duke.util.ErrorChecker.verifyCmd;
 
 /**
- * The main class Duke. Only has Main and Stop methods. The main event loop happens here.
+ * The main class Duke. Only has Main and Stop methods.
+ * The main event loop happens here.
  */
 
 public class Duke {
@@ -42,7 +43,7 @@ public class Duke {
      * The Parser instance is used to get user input and it returns a Command object.
      * The Command object, which stores information from the user in an accessible interface,
      * is then used to pass information to the switch statement that holds the command logic.
-     * @param args the input arguments
+     * @param args the input arguments from the command line
      */
 
     public static void main(String[] args) {
