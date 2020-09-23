@@ -14,6 +14,8 @@ public class replyMsg {
                                TASK_LIST_EMPTY     = "You currently have no tasks.";
     public static final String TASK_LOAD_SUCCESS_1 = "Successfully loaded from save file!",
                                TASK_LOAD_SUCCESS_2 = "Now you have %d tasks.";
+    public static final String TASK_FIND_HEADER    = "For the search term '%s', these are the results: ",
+                               TASK_FIND_NOTHING   = "No tasks were found matching the search term '%s'.";
 
     public static final String[] TASK_ALREADY_DONE = new String[] {
                                                         "This task is already complete!",
