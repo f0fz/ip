@@ -57,10 +57,13 @@ public class ErrorChecker {
             throw new DukeException("Todos command argument not matching: description");
 
         // 2 arguments (description, by) , 1 optional arguments (done)
+        // Validity of date 'by'
         case "deadline":
             if ((taskCmd.getArgCount() == 2)) {
                 if (taskCmd.getArgument(1).split(" ")[0].equals("by")) {
-                    break;
+                    if (DateTime.checkValidDate(taskCmd.getArgument(1).substring(3))){
+                        break;
+                    }
                 }
             }
             if (taskCmd.getArgCount() == 3) {
@@ -71,10 +74,13 @@ public class ErrorChecker {
             throw new DukeException("Deadline command arguments not matching: description /by deadline");
 
         // 2 arguments (description, at) , 1 optional arguments (done)
+        // Validity of date 'at'
         case "event":
             if ((taskCmd.getArgCount() == 2)) {
                 if (taskCmd.getArgument(1).split(" ")[0].equals("at")) {
-                    break;
+                    if (DateTime.checkValidDate(taskCmd.getArgument(1).substring(3))){
+                        break;
+                    }
                 }
             }
             if (taskCmd.getArgCount() == 3) {

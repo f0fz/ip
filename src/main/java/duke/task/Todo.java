@@ -5,7 +5,7 @@ package duke.task;
  * Characterised by not having extra attributes.
  */
 public class Todo extends Task {
-    protected String token = "[T]";
+    protected final String TOKEN = "[T]";
 
     /**
      * Instantiates a new To-do.
@@ -22,7 +22,7 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        return super.toString("[T]");
+        return super.toString(TOKEN);
     }
 
     /**

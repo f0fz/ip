@@ -1,5 +1,7 @@
 package duke;
 
+import duke.message.errorMsg;
+import duke.message.replyMsg;
 import duke.util.Command;
 import duke.util.IO;
 import duke.util.Parser;
@@ -23,17 +25,37 @@ public class Duke {
      */
     private static boolean stop(boolean hasSaved, boolean forceQuit) {
         if (!(hasSaved || forceQuit)) {
-            UI.reply(new String[]{"Hold on! You have unsaved changes!",
-                                  "Type 'save <filename>' to save your changes if you want to.",
-                                  "Otherwise, type 'bye /force' to exit without saving."});
+            UI.reply(replyMsg.UNSAVED_CHANGES);
             return false;
         } else {
             if (forceQuit) {
-                UI.reply(new String[]{"Discarding changes...","Bye. Hope to see you again soon!"});
+                UI.reply(replyMsg.BYE_NO_SAVE);
             } else {
-                UI.reply("Bye. Hope to see you again soon!");
+                UI.reply(replyMsg.BYE);
             }
             return true;
+        }
+    }
+
+    /**
+     * Handles the complicated logic for executing the 'load' command.
+     *
+     * @param taskList      The main task list
+     * @param latestCommand The latest command
+     */
+    private static void executeLoad(TaskList taskList, Command latestCommand) {
+        // if there are no tasks or user has already specified /YES to overwrite current tasks,
+        if (taskList.getTaskCount() == 0 ||
+                (latestCommand.getArgCount() >= 2 &&
+                        latestCommand.getArgument(1).equals("YES"))) {
+
+            // clear then load tasks
+            taskList.clearAllTasks();
+            taskList.loadTasks(latestCommand.getArgument(0));
+        }
+        else {
+            // else, alert the user
+            UI.reply(replyMsg.WARN_OVERWRITE);
         }
     }
 
@@ -47,8 +69,7 @@ public class Duke {
      */
 
     public static void main(String[] args) {
-        String[] greetings = {"Hello! I'm Duke", "What can I do for you?"};
-        UI.reply(greetings);
+        UI.reply(replyMsg.GREET);
 
         TaskList taskList = new TaskList();
         Parser parser = new Parser();
@@ -65,14 +86,14 @@ public class Duke {
                 latestCommand.debug();
             }
 
+            // Check if latest command is valid using verifyCmd
             try {
                 verifyCmd(latestCommand, taskList.getTaskCount());
             } catch (Exception e) {
-                UI.error(e, "Command entered is invalid!");
+                UI.error(e, errorMsg.COMMAND_INVALID_ERROR);
                 continue;
             }
 
-            // Switch handles all commands
             switch(latestCommand.getCommand()) {
 
             /////////////////////////////////////////////////////////////////////////
@@ -88,7 +109,7 @@ public class Duke {
                 break;
             case "debug": // Toggle debug mode
                 UI.toggleDebug();
-                UI.reply("Toggled debug mode to: " + UI.getDebugMode());
+                UI.reply(replyMsg.DEBUG_MODE_TOGGLE + UI.getDebugMode());
                 break;
 
             /////////////////////////////////////////////////////////////////////////
@@ -118,20 +139,7 @@ public class Duke {
                 taskList.saveTasks(latestCommand.getArgument(0));
                 break;
             case "load":
-                // if there are no tasks or user has already specified /YES to overwrite current tasks,
-                if (taskList.getTaskCount() == 0 ||
-                        (latestCommand.getArgCount() >= 2 &&
-                        latestCommand.getArgument(1).equals("YES"))) {
-
-                    // clear then load tasks
-                    taskList.clearAllTasks();
-                    taskList.loadTasks(latestCommand.getArgument(0));
-                }
-                else {
-                    // else, alert the user
-                    UI.reply(new String[]{"Are you sure? This will replace all your current tasks.",
-                                          "If you're sure, type load <filename> /YES."});
-                }
+                executeLoad(taskList, latestCommand);
                 break;
             case "showsaves":
                 IO.showSaves();
@@ -141,7 +149,7 @@ public class Duke {
             // UNKNOWN COMMAND
             //
             default:
-                UI.error("Command not recognised! Please try again...");
+                UI.error(errorMsg.COMMAND_UNRECOG_ERROR);
             }
         }
 
