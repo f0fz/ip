@@ -36,7 +36,6 @@ public class TaskList {
      *
      * @return the boolean
      */
-// Small little functions here
     public boolean checkWhetherSaved() {
         return hasSaved;
     }
@@ -100,8 +99,6 @@ public class TaskList {
      *
      * @param taskIDString the task ID in string form
      */
-// Returns a string indicating completion of the task.
-    // If it's already complete, it will say so by returning the right sentence.
     public void completeTask(String taskIDString) {
         int taskID = Integer.parseInt(taskIDString);
 
@@ -110,7 +107,7 @@ public class TaskList {
         } else {
             hasSaved = false; // list is edited
             taskList.get(taskID-1).setDone();
-            UI.reply(new String[]{"I've marked this task as done:", taskList.get(taskID-1).toString()});
+            UI.reply(new String[]{"POGCHAMP", taskList.get(taskID-1).toString()});
         }
     }
 
@@ -119,7 +116,6 @@ public class TaskList {
      *
      * @param taskIDString the task id string
      */
-// Deletes task based on the task ID given
     public void deleteTask(String taskIDString) {
         int taskID = Integer.parseInt(taskIDString);
         hasSaved = false; // list is edited
@@ -129,23 +125,40 @@ public class TaskList {
         UI.reply(new String[]{"Removed the task as requested.", "The task: " + removedTask.toString()});
     }
 
+    public void findTask(String findString) {
+        ArrayList<Task> foundTaskList = new ArrayList<>();
+        for (Task eachTask : taskList) {
+            if (eachTask.getName().contains(findString)) {
+                foundTaskList.add(eachTask);
+            }
+        }
+
+        displayTaskList(foundTaskList, "Here are the tasks matching the description '" + findString + "':",
+                "No tasks matching the description '" + findString + "'");
+    }
+
     /**
      * Shows task list.
      */
-// Prints all the tasks to be done
-    public void showTaskList() {
-        if (taskCount == 0) {
-            UI.reply("You currently have no tasks.");
+    public void listAllTasks() {
+        displayTaskList(taskList, "Here are the tasks in your list:",
+                "You currently have no tasks.");
+    }
+
+    public void displayTaskList(ArrayList<Task> givenTaskList, String taskListHeader, String noTaskMessage) {
+        int givenTaskCount = givenTaskList.size();
+        if (givenTaskCount == 0) {
+            UI.reply(noTaskMessage);
             return;
         }
 
-        String[] outputList = new String[taskCount + 1];
-        outputList[0] = "Here are the tasks in your list:";
+        String[] outputList = new String[givenTaskCount + 1];
+        outputList[0] = taskListHeader;
 
         Task eachTask;
         // Start from 1, since index 0 of outputList is occupied
-        for (int i = 1; i <= taskCount; i++) {
-            eachTask = taskList.get(i-1);
+        for (int i = 1; i <= givenTaskCount; i++) {
+            eachTask = givenTaskList.get(i-1);
             outputList[i] = i + ". " + eachTask.toString();
         }
         UI.reply(outputList);

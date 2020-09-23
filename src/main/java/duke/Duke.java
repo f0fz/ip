@@ -84,7 +84,7 @@ public class Duke {
                                latestCommand.getArgument(0).equals("force"));
                 break;
             case "list": // List all tasks
-                taskList.showTaskList();
+                taskList.listAllTasks();
                 break;
             case "debug": // Toggle debug mode
                 UI.toggleDebug();
@@ -106,6 +106,9 @@ public class Duke {
                 break;
             case "done": // Complete a task
                 taskList.completeTask(latestCommand.getArgument(0));
+                break;
+            case "find": // Complete a task
+                taskList.findTask(latestCommand.getArgument(0));
                 break;
 
             /////////////////////////////////////////////////////////////////////////

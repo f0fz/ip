@@ -172,6 +172,12 @@ public class ErrorChecker {
             }
             throw new DukeException(cmd.getCommand() +
                                     " command arguments not matching: <task ID> (task ID should be in range)");
+        // 1 argument (string), 0 optional arguments
+        case "find":
+            if (cmd.getArgCount() == 1) {
+                break;
+            }
+            throw new DukeException("Find command takes no arguments");
         default:
             break; // do nothing
         }
