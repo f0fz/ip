@@ -1,21 +1,25 @@
 package duke.task;
 
+import duke.util.DateTime;
+import java.time.LocalDateTime;
+
 /**
  * The type Deadline, which extends Task.
  * Characterised by the 'by' attribute.
  */
 public class Deadline extends Task {
-    protected String token = "[D]";
-    protected String by;
+    protected final String TOKEN = "[D]";
+    protected final String STRING_FORMAT = "%s (by: %s)";
+    protected final String COMMAND_FORMAT = "deadline %s /by %s";
+    protected LocalDateTime by;
 
     /**
      * Instantiates a new Deadline.
-     *
-     * @param newName the name (description) of the deadline task
+     *  @param newName the name (description) of the deadline task
      * @param by      the date by which to complete it
      * @param isDone  whether the task is complete
      */
-    public Deadline(String newName, String by, boolean isDone){
+    public Deadline(String newName, LocalDateTime by, boolean isDone){
         super(newName, isDone);
         this.by = by;
     }
@@ -25,7 +29,7 @@ public class Deadline extends Task {
      *
      * @return the date
      */
-    public String getBy() {
+    public LocalDateTime getBy() {
         return by;
     }
 
@@ -34,7 +38,7 @@ public class Deadline extends Task {
      *
      * @param by the date
      */
-    public void setBy(String by) {
+    public void setBy(LocalDateTime by) {
         this.by = by;
     }
 
@@ -43,7 +47,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return super.toString("[D]") + " (by: " + by + ")";
+        return String.format(STRING_FORMAT, super.toString(TOKEN), DateTime.getStringForm(by));
     }
 
     /**
@@ -51,6 +55,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toCommand() {
-        return "deadline " + super.toCommand() + " /by " + by + (isDone ? " /done" : "");
+        return String.format(COMMAND_FORMAT, super.toCommand(), DateTime.getCommandForm(by), (isDone ? " /done" : ""));
     }
 }

@@ -1,7 +1,7 @@
 package duke.task;
 
-import static duke.util.UI.tick;
-import static duke.util.UI.cross;
+import static duke.util.UI.TICK;
+import static duke.util.UI.CROSS;
 
 
 /**
@@ -63,7 +63,7 @@ public class Task {
      * @return the check
      */
     public String getCheck() {
-        return isDone ? "["+ tick +"]" : "["+ cross +"]";
+        return isDone ? "["+ TICK +"]" : "["+ CROSS +"]";
     }
 
     /**

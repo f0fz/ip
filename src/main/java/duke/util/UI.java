@@ -8,8 +8,12 @@ public class UI {
     public final static String ERROR_BAR = "!――――――!――――――!――――――!――――――!――――――!――――――!";
     public final static String DEBUG_BAR = "?――――――?――――――?――――――?――――――?――――――?――――――?";
 
-    public final static char tick = '\u2713';
-    public final static char cross = '\u2717';
+    public final static String REPLY_INDENT = " >>> ";
+
+    public final static String DEBUG_HEADER = "Debugging...";
+
+    public final static char TICK = '\u2713';
+    public final static char CROSS = '\u2717';
 
     public static boolean isDebugMode = false;
 
@@ -49,7 +53,7 @@ public class UI {
     public static void reply(String[] responses) {
         System.out.println("\n" + REPLY_BAR);
         for (String eachResponse : responses) {
-            System.out.println(" >>> " + eachResponse);
+            System.out.println(REPLY_INDENT + eachResponse);
         }
         System.out.println(REPLY_BAR + "\n");
     }
@@ -64,13 +68,12 @@ public class UI {
 // And same thing for error messages!
     public static void error(Exception e, String errorMsg) {
         String BAR = (getDebugMode()) ? DEBUG_BAR : ERROR_BAR;
-        System.out.println("\n" + BAR + "\n >>> " + errorMsg);
+        System.out.println("\n" + BAR + "\n" + REPLY_INDENT + errorMsg);
         if (getDebugMode()) {
-            System.out.println(" >>> Debug...");
+            System.out.println(REPLY_INDENT + DEBUG_HEADER);
             e.printStackTrace();
         } else {
-            System.out.print(" >>> ");
-            System.out.println(e.getMessage());
+            System.out.println(REPLY_INDENT + e.getMessage());
         }
         System.out.println(BAR + "\n");
     }
@@ -86,15 +89,14 @@ public class UI {
         String BAR = (getDebugMode()) ? DEBUG_BAR : ERROR_BAR;
         System.out.println("\n" + BAR);
         for (String eachMsg : errorMsgs) {
-            System.out.println(" >>> " + eachMsg);
+            System.out.println(REPLY_INDENT + eachMsg);
         }
 
         if (getDebugMode()) {
-            System.out.println(" >>> Debug...");
+            System.out.println(REPLY_INDENT + DEBUG_HEADER);
             e.printStackTrace();
         } else {
-            System.out.println(" >>> ");
-            System.out.print(e.getMessage());
+            System.out.println(REPLY_INDENT + e.getMessage());
         }
         System.out.println(BAR + "\n");
     }
@@ -107,7 +109,7 @@ public class UI {
 // And again for error messages without exceptions!
     public static void error(String errorMsg) {
         String BAR = (getDebugMode()) ? DEBUG_BAR : ERROR_BAR;
-        System.out.println("\n" + BAR + "\n >>> " + errorMsg + "\n" + BAR + "\n");
+        System.out.println("\n" + BAR + "\n" + REPLY_INDENT + errorMsg + "\n" + BAR + "\n");
     }
 
     /**
@@ -119,7 +121,7 @@ public class UI {
         String BAR = (getDebugMode()) ? DEBUG_BAR : ERROR_BAR;
         System.out.println("\n" + BAR);
         for (String eachMsg : errorMsgs) {
-            System.out.println(" >>> " + eachMsg);
+            System.out.println(REPLY_INDENT + eachMsg);
         }
         System.out.println(BAR + "\n");
     }

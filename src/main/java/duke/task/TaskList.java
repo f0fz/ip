@@ -1,7 +1,11 @@
 package duke.task;
 
+import duke.message.errorMsg;
+import duke.message.replyMsg;
 import duke.util.Command;
 import java.util.ArrayList;
+
+import duke.util.DateTime;
 import duke.util.IO;
 import duke.util.UI;
 
@@ -80,17 +84,20 @@ public class TaskList {
             break;
         case "deadline":
             timeArg = command.getArgument(1).substring(3); // removing the "by "
-            taskList.add(new Deadline(taskName, timeArg, isDone));
+            taskList.add(new Deadline(taskName, DateTime.parseDate(timeArg), isDone));
             break;
         case "event":
-            timeArg = command.getArgument(1).substring(3); // removing the "at "
-            taskList.add(new Event(taskName, timeArg, isDone));
+            timeArg = command.getArgument(1).substring(3); // removing the "by "
+            taskList.add(new Event(taskName, DateTime.parseDate(timeArg), isDone));
+            break;
         }
         taskCount++;
         hasSaved = false; // list is edited
         if (!silent) {
-            UI.reply(new String[]{"Added: " + taskList.get(taskCount - 1).toString(),
-                    "Now you have " + taskCount + " tasks."});
+            UI.reply(new String[]{
+                    String.format(replyMsg.TASK_ADD_COMPLETE_1, taskList.get(taskCount - 1).toString()),
+                    String.format(replyMsg.TASK_ADD_COMPLETE_2, taskCount)
+            });
         }
     }
 
@@ -106,11 +113,14 @@ public class TaskList {
         int taskID = Integer.parseInt(taskIDString);
 
         if (taskList.get(taskID-1).getDone()) {
-            UI.reply(new String[]{"This task is already complete!", "Did you perhaps mean another task?"});
+            UI.reply(replyMsg.TASK_ALREADY_DONE);
         } else {
             hasSaved = false; // list is edited
             taskList.get(taskID-1).setDone();
-            UI.reply(new String[]{"I've marked this task as done:", taskList.get(taskID-1).toString()});
+            UI.reply(new String[]{
+                    replyMsg.TASK_DONE_SUCCESS,
+                    taskList.get(taskID-1).toString()
+            });
         }
     }
 
@@ -126,7 +136,10 @@ public class TaskList {
         taskCount--;
         Task removedTask = taskList.get(taskID-1);
         taskList.remove(taskID-1);
-        UI.reply(new String[]{"Removed the task as requested.", "The task: " + removedTask.toString()});
+        UI.reply(new String[]{
+                replyMsg.TASK_DELETE_SUCCESS,
+                removedTask.toString()
+        });
     }
 
     /**
@@ -135,12 +148,12 @@ public class TaskList {
 // Prints all the tasks to be done
     public void showTaskList() {
         if (taskCount == 0) {
-            UI.reply("You currently have no tasks.");
+            UI.reply(replyMsg.TASK_LIST_EMPTY);
             return;
         }
 
         String[] outputList = new String[taskCount + 1];
-        outputList[0] = "Here are the tasks in your list:";
+        outputList[0] = replyMsg.TASK_LIST_HEADER;
 
         Task eachTask;
         // Start from 1, since index 0 of outputList is occupied
@@ -166,7 +179,7 @@ public class TaskList {
         }
 
         if (IO.saveFile(fileName, linesToWrite)) {
-            UI.reply(new String[]{"All files successfully saved!", "You can now close the program."});
+            UI.reply(replyMsg.TASK_SAVE_SUCCESS);
         }
     }
 
@@ -182,10 +195,13 @@ public class TaskList {
             for (Command eachCommand : commandList) {
                 addTask(eachCommand, true);
             }
-            UI.reply(new String[]{"All tasks loaded!", "Total number of tasks: " + taskCount });
+            UI.reply(new String[]{
+                    replyMsg.TASK_LOAD_SUCCESS_1,
+                    String.format(replyMsg.TASK_LOAD_SUCCESS_2, taskCount)
+            });
             hasSaved = true; // list is unchanged
         } catch (Exception e) {
-            UI.error(e, "Can't read file!");
+            UI.error(e, errorMsg.READ_FILE_ERROR + fileName);
         }
     }
 }

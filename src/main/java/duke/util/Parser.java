@@ -1,5 +1,7 @@
 package duke.util;
 
+import duke.message.errorMsg;
+
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.io.File;
@@ -31,7 +33,7 @@ public class Parser {
             scan = new Scanner(f);
         } catch (FileNotFoundException e) {
             e.printStackTrace(); // Likely will never happen. Only putting this because IntelliJ told me to.
-            UI.error("I can't believe you've done this.");
+            UI.error(errorMsg.PARSER_NO_FILE_ERROR);
         }
     }
 

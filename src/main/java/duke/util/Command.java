@@ -1,5 +1,8 @@
 package duke.util;
 
+import duke.message.errorMsg;
+
+import java.time.LocalDate;
 import java.util.Arrays;
 
 /**
@@ -11,6 +14,7 @@ public class Command {
     protected String command;     // The actual command. E.g. "list", "bye"
     protected int argCount;       // The number of additional arguments
     protected String[] arguments; // Stores all additional arguments. E.g. "by tomorrow", "at 1-5pm"
+    protected LocalDate date;     // For any possible dates
 
     /**
      * Instantiates a new Command.
@@ -72,6 +76,7 @@ public class Command {
     public int getArgCount() {
         return argCount;
     }
+
 
     /**
      * To display the Command object's information for debugging.
