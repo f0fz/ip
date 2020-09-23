@@ -1,12 +1,18 @@
 package duke.task;
 
+import duke.util.DateTime;
+
+import java.time.LocalDateTime;
+
 /**
  * The type Event, which extends Task.
  * Characterised by the 'at' attribute.
  */
 public class Event extends Task {
-    protected String token = "[E]";
-    protected String at;
+    protected final String TOKEN = "[E]";
+    protected final String STRING_FORMAT = "%s (at: %s)";
+    protected final String COMMAND_FORMAT = "event %s /at %s";
+    protected LocalDateTime at;
 
     /**
      * Instantiates a new Event.
@@ -15,7 +21,7 @@ public class Event extends Task {
      * @param at      the start-end time period
      * @param isDone  whether the task is complete
      */
-    public Event(String newName, String at, boolean isDone){
+    public Event(String newName, LocalDateTime at, boolean isDone){
         super(newName, isDone);
         this.at = at;
     }
@@ -25,7 +31,7 @@ public class Event extends Task {
      *
      * @return the by
      */
-    public String getAt() {
+    public LocalDateTime getAt() {
         return at;
     }
 
@@ -34,7 +40,7 @@ public class Event extends Task {
      *
      * @param at the time period
      */
-    public void setAt(String at) {
+    public void setAt(LocalDateTime at) {
         this.at = at;
     }
 
@@ -43,7 +49,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return super.toString("[E]") + " (at: " + at + ")";
+        return String.format(STRING_FORMAT, super.toString(TOKEN), DateTime.getStringForm(at));
     }
 
     /**
@@ -51,6 +57,6 @@ public class Event extends Task {
      */
     @Override
     public String toCommand() {
-        return "event " + super.toCommand() + " /at " + at + (isDone ? " /done" : "");
+        return String.format(COMMAND_FORMAT, super.toCommand(), DateTime.getCommandForm(at), (isDone ? " /done" : ""));
     }
 }
