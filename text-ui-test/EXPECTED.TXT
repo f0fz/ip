@@ -6,7 +6,7 @@
 
 
 !――――――!――――――!――――――!――――――!――――――!――――――!
- >>> Command not recognised! Please try again...
+ >>> Command is not recognised, please try again.
 !――――――!――――――!――――――!――――――!――――――!――――――!
 
 
@@ -17,27 +17,34 @@
 
 
 ――――――――――――――――――――――――――――――――――――――――――
- >>> Added: [D][✗] yee (by: tomorrow)
+ >>> Added: [D][✗] yee (by: Sun 02:34, 14 Jun 2020)
  >>> Now you have 2 tasks.
 ――――――――――――――――――――――――――――――――――――――――――
 
 
 ――――――――――――――――――――――――――――――――――――――――――
- >>> Added: [E][✗] haw (at: today-tomorrow)
+ >>> Added: [E][✗] haw (at: Tue 06:54, 13 Oct 2020)
  >>> Now you have 3 tasks.
+――――――――――――――――――――――――――――――――――――――――――
+
+
+――――――――――――――――――――――――――――――――――――――――――
+ >>> Added: [T][✗] yeet
+ >>> Now you have 4 tasks.
 ――――――――――――――――――――――――――――――――――――――――――
 
 
 ――――――――――――――――――――――――――――――――――――――――――
  >>> Here are the tasks in your list:
  >>> 1. [T][✗] wah
- >>> 2. [D][✗] yee (by: tomorrow)
- >>> 3. [E][✗] haw (at: today-tomorrow)
+ >>> 2. [D][✗] yee (by: Sun 02:34, 14 Jun 2020)
+ >>> 3. [E][✗] haw (at: Tue 06:54, 13 Oct 2020)
+ >>> 4. [T][✗] yeet
 ――――――――――――――――――――――――――――――――――――――――――
 
 
 ――――――――――――――――――――――――――――――――――――――――――
- >>> I've marked this task as done:
+ >>> I've marked this task as complete:
  >>> [T][✓] wah
 ――――――――――――――――――――――――――――――――――――――――――
 
@@ -45,36 +52,51 @@
 ――――――――――――――――――――――――――――――――――――――――――
  >>> Here are the tasks in your list:
  >>> 1. [T][✓] wah
- >>> 2. [D][✗] yee (by: tomorrow)
- >>> 3. [E][✗] haw (at: today-tomorrow)
+ >>> 2. [D][✗] yee (by: Sun 02:34, 14 Jun 2020)
+ >>> 3. [E][✗] haw (at: Tue 06:54, 13 Oct 2020)
+ >>> 4. [T][✗] yeet
 ――――――――――――――――――――――――――――――――――――――――――
 
 
 ――――――――――――――――――――――――――――――――――――――――――
- >>> I've marked this task as done:
- >>> [D][✓] yee (by: tomorrow)
-――――――――――――――――――――――――――――――――――――――――――
-
-
-――――――――――――――――――――――――――――――――――――――――――
- >>> Here are the tasks in your list:
- >>> 1. [T][✓] wah
- >>> 2. [D][✓] yee (by: tomorrow)
- >>> 3. [E][✗] haw (at: today-tomorrow)
-――――――――――――――――――――――――――――――――――――――――――
-
-
-――――――――――――――――――――――――――――――――――――――――――
- >>> I've marked this task as done:
- >>> [E][✓] haw (at: today-tomorrow)
+ >>> I've marked this task as complete:
+ >>> [D][✓] yee (by: Sun 02:34, 14 Jun 2020)
 ――――――――――――――――――――――――――――――――――――――――――
 
 
 ――――――――――――――――――――――――――――――――――――――――――
  >>> Here are the tasks in your list:
  >>> 1. [T][✓] wah
- >>> 2. [D][✓] yee (by: tomorrow)
- >>> 3. [E][✓] haw (at: today-tomorrow)
+ >>> 2. [D][✓] yee (by: Sun 02:34, 14 Jun 2020)
+ >>> 3. [E][✗] haw (at: Tue 06:54, 13 Oct 2020)
+ >>> 4. [T][✗] yeet
+――――――――――――――――――――――――――――――――――――――――――
+
+
+――――――――――――――――――――――――――――――――――――――――――
+ >>> I've marked this task as complete:
+ >>> [E][✓] haw (at: Tue 06:54, 13 Oct 2020)
+――――――――――――――――――――――――――――――――――――――――――
+
+
+――――――――――――――――――――――――――――――――――――――――――
+ >>> Here are the tasks in your list:
+ >>> 1. [T][✓] wah
+ >>> 2. [D][✓] yee (by: Sun 02:34, 14 Jun 2020)
+ >>> 3. [E][✓] haw (at: Tue 06:54, 13 Oct 2020)
+ >>> 4. [T][✗] yeet
+――――――――――――――――――――――――――――――――――――――――――
+
+
+――――――――――――――――――――――――――――――――――――――――――
+ >>> For the search term 'yee', these are the results:
+ >>> 1. [D][✓] yee (by: Sun 02:34, 14 Jun 2020)
+ >>> 2. [T][✗] yeet
+――――――――――――――――――――――――――――――――――――――――――
+
+
+――――――――――――――――――――――――――――――――――――――――――
+ >>> No tasks were found matching the search term 'nope'.
 ――――――――――――――――――――――――――――――――――――――――――
 
 
@@ -90,39 +112,41 @@
 
 
 ――――――――――――――――――――――――――――――――――――――――――
- >>> Removed the task as requested.
- >>> The task: [E][✓] haw (at: today-tomorrow)
+ >>> Removed the task as requested:
+ >>> [E][✓] haw (at: Tue 06:54, 13 Oct 2020)
 ――――――――――――――――――――――――――――――――――――――――――
 
 
 ――――――――――――――――――――――――――――――――――――――――――
  >>> Here are the tasks in your list:
  >>> 1. [T][✓] wah
- >>> 2. [D][✓] yee (by: tomorrow)
+ >>> 2. [D][✓] yee (by: Sun 02:34, 14 Jun 2020)
+ >>> 3. [T][✗] yeet
 ――――――――――――――――――――――――――――――――――――――――――
 
 
 ――――――――――――――――――――――――――――――――――――――――――
- >>> Removed the task as requested.
- >>> The task: [T][✓] wah
+ >>> Removed the task as requested:
+ >>> [T][✓] wah
 ――――――――――――――――――――――――――――――――――――――――――
 
 
 ――――――――――――――――――――――――――――――――――――――――――
  >>> Here are the tasks in your list:
- >>> 1. [D][✓] yee (by: tomorrow)
+ >>> 1. [D][✓] yee (by: Sun 02:34, 14 Jun 2020)
+ >>> 2. [T][✗] yeet
 ――――――――――――――――――――――――――――――――――――――――――
 
 
-!――――――!――――――!――――――!――――――!――――――!――――――!
- >>> Command entered is invalid!
- >>> delete command arguments not matching: <task ID> (task ID should be in range)
-!――――――!――――――!――――――!――――――!――――――!――――――!
+――――――――――――――――――――――――――――――――――――――――――
+ >>> Removed the task as requested:
+ >>> [T][✗] yeet
+――――――――――――――――――――――――――――――――――――――――――
 
 
 ――――――――――――――――――――――――――――――――――――――――――
  >>> Here are the tasks in your list:
- >>> 1. [D][✓] yee (by: tomorrow)
+ >>> 1. [D][✓] yee (by: Sun 02:34, 14 Jun 2020)
 ――――――――――――――――――――――――――――――――――――――――――
 
 
@@ -133,22 +157,23 @@
 
 
 ――――――――――――――――――――――――――――――――――――――――――
- >>> All tasks loaded!
- >>> Total number of tasks: 3
+ >>> Successfully loaded from save file!
+ >>> Now you have 4 tasks.
 ――――――――――――――――――――――――――――――――――――――――――
 
 
 ――――――――――――――――――――――――――――――――――――――――――
  >>> Here are the tasks in your list:
  >>> 1. [T][✓] wah
- >>> 2. [D][✓] yee (by: tomorrow)
- >>> 3. [E][✓] haw (at: today-tomorrow)
+ >>> 2. [D][✗] yee (by: Sun 02:34, 14 Jun 2020)
+ >>> 3. [E][✗] haw (at: Tue 06:54, 13 Oct 2020)
+ >>> 4. [T][✗] yeet
 ――――――――――――――――――――――――――――――――――――――――――
 
 
 ――――――――――――――――――――――――――――――――――――――――――
  >>> Added: [T][✓] can't save
- >>> Now you have 4 tasks.
+ >>> Now you have 5 tasks.
 ――――――――――――――――――――――――――――――――――――――――――
 
 

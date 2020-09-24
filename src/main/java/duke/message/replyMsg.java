@@ -6,15 +6,15 @@ public class replyMsg {
                                PARSER_NO_FILE_ERROR = "Parser could not find file specified!";
 
     // TaskList
-    public static final String TASK_ADD_COMPLETE_1 = "Added %s",
+    public static final String TASK_ADD_COMPLETE_1 = "Added: %s",
                                TASK_ADD_COMPLETE_2 = "Now you have %d tasks.";
-    public static final String TASK_DONE_SUCCESS   = "I've marked this task as complete: ";
-    public static final String TASK_DELETE_SUCCESS = "Removed the task as requested: ";
-    public static final String TASK_LIST_HEADER    = "Here are the tasks in your list: ",
+    public static final String TASK_DONE_SUCCESS   = "I've marked this task as complete:";
+    public static final String TASK_DELETE_SUCCESS = "Removed the task as requested:";
+    public static final String TASK_LIST_HEADER    = "Here are the tasks in your list:",
                                TASK_LIST_EMPTY     = "You currently have no tasks.";
     public static final String TASK_LOAD_SUCCESS_1 = "Successfully loaded from save file!",
                                TASK_LOAD_SUCCESS_2 = "Now you have %d tasks.";
-    public static final String TASK_FIND_HEADER    = "For the search term '%s', these are the results: ",
+    public static final String TASK_FIND_HEADER    = "For the search term '%s', these are the results:",
                                TASK_FIND_NOTHING   = "No tasks were found matching the search term '%s'.";
 
     public static final String[] TASK_ALREADY_DONE = new String[] {

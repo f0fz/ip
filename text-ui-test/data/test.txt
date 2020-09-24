@@ -1,5 +1,6 @@
-4
+5
 todo wah /done
-deadline yee /by tomorrow /done
-event haw /at today-tomorrow /done
+deadline yee /by 14/06/2020 02:34
+event haw /at 13/10/2020 06:54
+todo yeet
 todo can't save /done
