@@ -2,7 +2,11 @@
 
 Jun You's Duke.
 
+---
+
 ## Features 
+
+---
 
 ### Managing todos, deadlines, and events
 You can let Duke keep track of your todos, deadlines, and events.
@@ -15,7 +19,11 @@ Duke will also warn you about any unsaved tasks or tasks about to be overwritten
 Type in all the wrong commands you want - Duke won't crash on you!
 Also, Duke has a debug feature to make developers' lives easier.
 
+---
+
 ## Task Management Command Usage
+
+---
 
 ### `todo` - Adds todo
 
@@ -31,6 +39,8 @@ Expected outcome:
 
 `Added: <task>`
 
+---
+
 ### `deadline` - Adds deadline
 
 Adds a task to Duke's task list with its deadline.
@@ -44,6 +54,8 @@ Example of usage:
 Expected outcome:
 
 `Added: <task with deadline>`
+
+---
 
 ### `event` - Adds event
 
@@ -59,6 +71,8 @@ Expected outcome:
 
 `Added: <event with time period>`
 
+---
+
 ### `list` - Lists tasks
 
 Shows you Duke's current task list, with each task tagged with a number (the Task ID).
@@ -73,6 +87,8 @@ Expected outcome:
 
 `1. ...`
 
+---
+
 ### `delete` - Deletes tasks
 
 Deletes a task from Duke's task list. You must specify a valid task ID.
@@ -84,6 +100,8 @@ Example of usage:
 Expected outcome:
 
 `Removed the task as requested: <task>`
+
+---
 
 ### `find` - Find tasks
 
@@ -100,6 +118,8 @@ Expected outcome:
 `For the search term '<search term>', these are the results:`
 `1. ...`
 
+---
+
 ### `done` - Mark tasks as complete
 
 Marks the task with the given task ID as complete.
@@ -112,7 +132,11 @@ Expected outcome:
 
 `I've marked this task as complete: <task>`
 
+---
+
 ## Save/Load Command Usage
+
+---
 
 ### `save` - Save task list to disk
 
@@ -128,6 +152,8 @@ Expected outcome:
 
 `You can now close the program.`
 
+---
+
 ### `load` - Load task list from disk
 
 Loads a specified task list on disk into Duke, replacing the current task list.
@@ -140,6 +166,8 @@ Example of usage:
 Expected outcome:
 
 `Successfully loaded from save file!`
+
+---
 
 ### `show-saves` - Show all saved task lists
 
@@ -155,7 +183,11 @@ Expected outcome:
 
 `Here's all your saves:`
 
+---
+
 ## Utility Command Usage
+
+---
 
 ### `debug` - Enter debug mode
 
@@ -169,6 +201,8 @@ Example of usage:
 Expected outcome:
 
 `Toggled debug mode to: <debug state>`
+
+---
 
 ### `bye` - Exit Duke
 
