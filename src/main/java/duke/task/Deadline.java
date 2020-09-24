@@ -15,7 +15,8 @@ public class Deadline extends Task {
 
     /**
      * Instantiates a new Deadline.
-     *  @param newName the name (description) of the deadline task
+     *
+     * @param newName the name (description) of the deadline task
      * @param by      the date by which to complete it
      * @param isDone  whether the task is complete
      */

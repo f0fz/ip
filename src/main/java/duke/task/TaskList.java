@@ -2,6 +2,7 @@ package duke.task;
 
 import duke.constant.ErrorMsg;
 import duke.constant.ReplyMsg;
+import duke.constant.CommandStr;
 import duke.util.Command;
 import java.util.ArrayList;
 
@@ -78,15 +79,15 @@ public class TaskList {
         // Second argument is 'at/by' for Deadline and Event
         String timeArg;
         switch(command.getCommand().toLowerCase()) {
-        case "todo":
+        case CommandStr.TODO_CMD:
             taskList.add(new Todo(taskName, isDone));
             break;
-        case "deadline":
-            timeArg = command.getArgument(1).substring(3); // removing the "by "
+        case CommandStr.DEADLINE_CMD:
+            timeArg = command.getArgument(1).substring(CommandStr.BY_ARG.length() + 1); // removing the "by "
             taskList.add(new Deadline(taskName, DateTime.parseDate(timeArg), isDone));
             break;
-        case "event":
-            timeArg = command.getArgument(1).substring(3); // removing the "by "
+        case CommandStr.EVENT_CMD:
+            timeArg = command.getArgument(1).substring(CommandStr.AT_ARG.length() + 1); // removing the "by "
             taskList.add(new Event(taskName, DateTime.parseDate(timeArg), isDone));
             break;
         }
@@ -165,6 +166,7 @@ public class TaskList {
 
     /**
      * Displays all tasks in the given task list.
+     *
      * @param givenTaskList ArrayList of tasks
      * @param taskListHeader String to print as header
      * @param noTaskMessage String to print if there are no tasks in the list

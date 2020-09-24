@@ -2,11 +2,14 @@ package duke.util;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The DateTime type. Encapsulates all logic for the LocalDateTime class of objects.
+ */
 public class DateTime {
     private static final DateTimeFormatter commandForm = DateTimeFormatter.ofPattern("d/MM/yyyy HH:mm");
     private static final DateTimeFormatter outputForm = DateTimeFormatter.ofPattern("E HH:mm, d MMM yyyy");
     /**
-     * Convert a string into a LocalDate object with the slashForm format.
+     * Convert a string into a LocalDateTime object with the slashForm format.
      *
      * @param input String to be parsed
      * @return LocalDate object

@@ -1,5 +1,9 @@
 package duke.constant;
 
+/**
+ * Constants for UI.reply().
+ * All non-error messages for the user are here.
+ */
 public class ReplyMsg {
     // TaskList
     public static final String TASK_ADD_COMPLETE_1 = "Added: %s",

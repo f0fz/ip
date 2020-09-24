@@ -79,7 +79,6 @@ public class Command {
     /**
      * To display the Command object's information for debugging.
      */
-// For debug purposes
     public void debug() {
         UI.error(new String[]{"Command breakdown:", "Command: " + command, "Arguments: " + Arrays.toString(arguments)});
     }

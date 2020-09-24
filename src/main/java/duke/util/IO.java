@@ -16,11 +16,9 @@ import static duke.util.UI.error;
  * Holds all the logic for reading and writing to files. Handles exceptions wherever it can.
  */
 public class IO {
-    /**
-     * The default path to the save file storage directory
-     */
     static final String DEFAULT_PATH = "data/";
     static final String FILE_EXT = ".txt";
+
     /**
      * Reads a save file based on the file name from the DEFAULT_PATH directory.
      * The tasks are stored as 'add task' commands in the text file.
@@ -71,7 +69,6 @@ public class IO {
         fw.close();
     }
 
-
     /**
      * Writes the converted tasks from TaskList into the specified save file. If the save file doesn't exist,
      * create it. If the directory DEFAULT_PATH doesn't exist at root, then create it too.
@@ -110,7 +107,6 @@ public class IO {
         }
         return true;
     }
-
 
     /**
      * Show all save files in the DEFAULT_PATH directory.

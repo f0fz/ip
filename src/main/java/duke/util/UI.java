@@ -32,7 +32,6 @@ public class UI {
         isDebugMode = !isDebugMode;
     }
 
-
     /**
      * Wraps strings in nice formatting.
      * This is the single string version.
@@ -64,7 +63,6 @@ public class UI {
      * @param e        the Exception thrown
      * @param errorMsg the accompanying error message
      */
-// And same thing for error messages!
     public static void error(Exception e, String errorMsg) {
         String BAR = (getDebugMode()) ? DEBUG_BAR : ERROR_BAR;
         System.out.println("\n" + BAR + "\n" + REPLY_INDENT + errorMsg);
@@ -105,7 +103,6 @@ public class UI {
      *
      * @param errorMsg the accompanying error message
      */
-// And again for error messages without exceptions!
     public static void error(String errorMsg) {
         String BAR = (getDebugMode()) ? DEBUG_BAR : ERROR_BAR;
         System.out.println("\n" + BAR + "\n" + REPLY_INDENT + errorMsg + "\n" + BAR + "\n");

@@ -1,5 +1,9 @@
 package duke.constant;
 
+/**
+ * Constants for UI.error().
+ * All error messages for the user are here.
+ */
 public class ErrorMsg {
     public static final String COMMAND_INVALID_ERROR = "Command entered is invalid!",
                                COMMAND_UNRECOG_ERROR = "Command is not recognised, please try again.";

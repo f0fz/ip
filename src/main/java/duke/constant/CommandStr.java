@@ -1,5 +1,8 @@
 package duke.constant;
 
+/**
+ * All strings needed to recognise commands and arguments are here.
+ */
 public class CommandStr {
     public static final String TODO_CMD      = "todo",
                                DEADLINE_CMD  = "deadline",

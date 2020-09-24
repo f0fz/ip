@@ -15,11 +15,11 @@ import static duke.util.ErrorChecker.verifyCmd;
  * The main class Duke. Only has Main and Stop methods.
  * The main event loop happens here.
  */
-
 public class Duke {
     /**
      * Gracefully shuts down Duke. Updates the boolean that tells the main event loop to stop.
      * Checks if the user has any unsaved changes. If so, it will prevent shutdown unless it's a force quit.
+     *
      * @param hasSaved  boolean check for unsaved changes
      * @param forceQuit boolean for force quit
      * @return exit condition of main event loop
@@ -66,9 +66,9 @@ public class Duke {
      * The Parser instance is used to get user input and it returns a Command object.
      * The Command object, which stores information from the user in an accessible interface,
      * is then used to pass information to the switch statement that holds the command logic.
+     *
      * @param args the input arguments from the command line
      */
-
     public static void main(String[] args) {
         UI.reply(ReplyMsg.GREET);
 
@@ -153,6 +153,5 @@ public class Duke {
                 UI.error(ErrorMsg.COMMAND_UNRECOG_ERROR);
             }
         }
-
     }
 }

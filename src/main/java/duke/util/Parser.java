@@ -27,7 +27,6 @@ public class Parser {
      *
      * @param f the file to scan for loading
      */
-// If the Parser is meant for a file
     public Parser(File f){
         try {
             scan = new Scanner(f);
@@ -84,7 +83,6 @@ public class Parser {
         if (inputArgs[0].charAt(0) == '/'){
             inputArgs[0] = inputArgs[0].substring(1);
         }
-
 
         for (String eachArg : inputArgs) {
             command.addArgument(eachArg);
