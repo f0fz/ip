@@ -1,7 +1,8 @@
 package duke;
 
-import duke.message.errorMsg;
-import duke.message.replyMsg;
+import duke.constant.ErrorMsg;
+import duke.constant.ReplyMsg;
+import duke.constant.CommandStr;
 import duke.util.Command;
 import duke.util.IO;
 import duke.util.Parser;
@@ -25,13 +26,13 @@ public class Duke {
      */
     private static boolean stop(boolean hasSaved, boolean forceQuit) {
         if (!(hasSaved || forceQuit)) {
-            UI.reply(replyMsg.UNSAVED_CHANGES);
+            UI.reply(ReplyMsg.UNSAVED_CHANGES);
             return false;
         } else {
             if (forceQuit) {
-                UI.reply(replyMsg.BYE_NO_SAVE);
+                UI.reply(ReplyMsg.BYE_NO_SAVE);
             } else {
-                UI.reply(replyMsg.BYE);
+                UI.reply(ReplyMsg.BYE);
             }
             return true;
         }
@@ -47,7 +48,7 @@ public class Duke {
         // if there are no tasks or user has already specified /YES to overwrite current tasks,
         if (taskList.getTaskCount() == 0 ||
                 (latestCommand.getArgCount() >= 2 &&
-                        latestCommand.getArgument(1).equals("YES"))) {
+                        latestCommand.getArgument(1).equals(CommandStr.OVERWRITE_OPT))) {
 
             // clear then load tasks
             taskList.clearAllTasks();
@@ -55,7 +56,7 @@ public class Duke {
         }
         else {
             // else, alert the user
-            UI.reply(replyMsg.WARN_OVERWRITE);
+            UI.reply(ReplyMsg.WARN_OVERWRITE);
         }
     }
 
@@ -69,15 +70,15 @@ public class Duke {
      */
 
     public static void main(String[] args) {
-        UI.reply(replyMsg.GREET);
+        UI.reply(ReplyMsg.GREET);
 
         TaskList taskList = new TaskList();
         Parser parser = new Parser();
-        boolean endLoop = false;
+        boolean hasEnded = false;
         Command latestCommand;
 
         // MAIN EVENT LOOP:
-        while (!endLoop) {
+        while (!hasEnded) {
             parser.getInput();
             latestCommand = parser.parseCommand();
 
@@ -90,7 +91,7 @@ public class Duke {
             try {
                 verifyCmd(latestCommand, taskList.getTaskCount());
             } catch (Exception e) {
-                UI.error(e, errorMsg.COMMAND_INVALID_ERROR);
+                UI.error(e, ErrorMsg.COMMAND_INVALID_ERROR);
                 continue;
             }
 
@@ -99,49 +100,49 @@ public class Duke {
             /////////////////////////////////////////////////////////////////////////
             // UTILITIES
             //
-            case "bye": // Exit condition is here
+            case CommandStr.EXIT_CMD: // Exit condition is here
                 // Check whether no changes to save or whether user force quit
-                endLoop = stop(taskList.checkWhetherSaved(),
-                               latestCommand.getArgument(0).equals("force"));
+                hasEnded = stop(taskList.checkWhetherSaved(),
+                               latestCommand.getArgument(0).equals(CommandStr.F_QUIT_OPT));
                 break;
-            case "list": // List all tasks
+            case CommandStr.LIST_T_CMD: // List all tasks
                 taskList.listAllTasks();
                 break;
-            case "debug": // Toggle debug mode
+            case CommandStr.DEBUG_CMD: // Toggle debug mode
                 UI.toggleDebug();
-                UI.reply(replyMsg.DEBUG_MODE_TOGGLE + UI.getDebugMode());
+                UI.reply(ReplyMsg.DEBUG_MODE_TOGGLE + UI.getDebugMode());
                 break;
 
             /////////////////////////////////////////////////////////////////////////
             // MANAGING TASKS
             //
-            case "todo": // Add a task to the task list
+            case CommandStr.TODO_CMD: // Add a task to the task list
                 // FALLTHROUGH
-            case "deadline": // Add a task to the task list
+            case CommandStr.DEADLINE_CMD: // Add a task to the task list
                 // FALLTHROUGH
-            case "event": // Add a task to the task list
+            case CommandStr.EVENT_CMD: // Add a task to the task list
                 taskList.addTask(latestCommand, false); // false for non-silent
                 break;
-            case "delete": // Delete a task
+            case CommandStr.DEL_T_CMD: // Delete a task
                 taskList.deleteTask(latestCommand.getArgument(0));
                 break;
-            case "done": // Complete a task
+            case CommandStr.DONE_T_CMD: // Complete a task
                 taskList.completeTask(latestCommand.getArgument(0));
                 break;
-            case "find": // Complete a task
+            case CommandStr.FIND_T_CMD: // Find tasks matching a string
                 taskList.findTask(latestCommand.getArgument(0));
                 break;
 
             /////////////////////////////////////////////////////////////////////////
             // SAVING AND LOADING
             //
-            case "save":
+            case CommandStr.SAVE_CMD:
                 taskList.saveTasks(latestCommand.getArgument(0));
                 break;
-            case "load":
+            case CommandStr.LOAD_CMD:
                 executeLoad(taskList, latestCommand);
                 break;
-            case "showsaves":
+            case CommandStr.SHOW_SAVE_CMD:
                 IO.showSaves();
                 break;
 
@@ -149,7 +150,7 @@ public class Duke {
             // UNKNOWN COMMAND
             //
             default:
-                UI.error(errorMsg.COMMAND_UNRECOG_ERROR);
+                UI.error(ErrorMsg.COMMAND_UNRECOG_ERROR);
             }
         }
 

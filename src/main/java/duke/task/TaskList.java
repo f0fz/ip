@@ -1,7 +1,7 @@
 package duke.task;
 
-import duke.message.errorMsg;
-import duke.message.replyMsg;
+import duke.constant.ErrorMsg;
+import duke.constant.ReplyMsg;
 import duke.util.Command;
 import java.util.ArrayList;
 
@@ -94,8 +94,8 @@ public class TaskList {
         hasSaved = false; // list is edited
         if (!silent) {
             UI.reply(new String[]{
-                    String.format(replyMsg.TASK_ADD_COMPLETE_1, taskList.get(taskCount - 1).toString()),
-                    String.format(replyMsg.TASK_ADD_COMPLETE_2, taskCount)
+                    String.format(ReplyMsg.TASK_ADD_COMPLETE_1, taskList.get(taskCount - 1).toString()),
+                    String.format(ReplyMsg.TASK_ADD_COMPLETE_2, taskCount)
             });
         }
     }
@@ -110,12 +110,12 @@ public class TaskList {
         int taskID = Integer.parseInt(taskIDString);
 
         if (taskList.get(taskID-1).getDone()) {
-            UI.reply(replyMsg.TASK_ALREADY_DONE);
+            UI.reply(ReplyMsg.TASK_ALREADY_DONE);
         } else {
             hasSaved = false; // list is edited
             taskList.get(taskID-1).setDone();
             UI.reply(new String[]{
-                    replyMsg.TASK_DONE_SUCCESS,
+                    ReplyMsg.TASK_DONE_SUCCESS,
                     taskList.get(taskID-1).toString()
             });
         }
@@ -133,7 +133,7 @@ public class TaskList {
         Task removedTask = taskList.get(taskID-1);
         taskList.remove(taskID-1);
         UI.reply(new String[]{
-                replyMsg.TASK_DELETE_SUCCESS,
+                ReplyMsg.TASK_DELETE_SUCCESS,
                 removedTask.toString()
         });
     }
@@ -152,15 +152,15 @@ public class TaskList {
         }
 
 
-        displayTaskList(foundTaskList, String.format(replyMsg.TASK_FIND_HEADER, findString),
-                                       String.format(replyMsg.TASK_FIND_NOTHING, findString));
+        displayTaskList(foundTaskList, String.format(ReplyMsg.TASK_FIND_HEADER, findString),
+                                       String.format(ReplyMsg.TASK_FIND_NOTHING, findString));
     }
 
     /**
      * Shows all tasks in the task list.
      */
     public void listAllTasks() {
-        displayTaskList(taskList, replyMsg.TASK_LIST_HEADER, replyMsg.TASK_LIST_EMPTY);
+        displayTaskList(taskList, ReplyMsg.TASK_LIST_HEADER, ReplyMsg.TASK_LIST_EMPTY);
     }
 
     /**
@@ -202,7 +202,7 @@ public class TaskList {
         }
 
         if (IO.saveFile(fileName, linesToWrite)) {
-            UI.reply(replyMsg.TASK_SAVE_SUCCESS);
+            UI.reply(ReplyMsg.TASK_SAVE_SUCCESS);
         }
     }
 
@@ -218,12 +218,12 @@ public class TaskList {
                 addTask(eachCommand, true);
             }
             UI.reply(new String[]{
-                    replyMsg.TASK_LOAD_SUCCESS_1,
-                    String.format(replyMsg.TASK_LOAD_SUCCESS_2, taskCount)
+                    ReplyMsg.TASK_LOAD_SUCCESS_1,
+                    String.format(ReplyMsg.TASK_LOAD_SUCCESS_2, taskCount)
             });
             hasSaved = true; // list is unchanged
         } catch (Exception e) {
-            UI.error(e, errorMsg.READ_FILE_ERROR + fileName);
+            UI.error(e, ErrorMsg.READ_FILE_ERROR + fileName);
         }
     }
 }

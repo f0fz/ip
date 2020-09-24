@@ -1,7 +1,5 @@
 package duke.util;
 
-import duke.message.errorMsg;
-
 import java.time.LocalDate;
 import java.util.Arrays;
 

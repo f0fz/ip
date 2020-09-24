@@ -1,10 +1,6 @@
-package duke.message;
+package duke.constant;
 
-public class replyMsg {
-    public static final String DATE_PARSE_ERROR = "Could not parse date: ",
-                               SAVE_FILE_ERROR = "IO.saveFile: Error encountered while writing to the file ",
-                               PARSER_NO_FILE_ERROR = "Parser could not find file specified!";
-
+public class ReplyMsg {
     // TaskList
     public static final String TASK_ADD_COMPLETE_1 = "Added: %s",
                                TASK_ADD_COMPLETE_2 = "Now you have %d tasks.";
@@ -32,7 +28,7 @@ public class replyMsg {
                                                         "No saves found!",
                                                         "To save your current task list, use 'save <filename>'"};
     public static final String[] SAVE_LIST_SAVES   = new String[]{
-                                                        "To load, type 'load filename'.",
+                                                        "To load, type 'load <filename>'.",
                                                         "Here's all your saves:"};
 
     // Main
@@ -41,15 +37,14 @@ public class replyMsg {
     public static final String[] UNSAVED_CHANGES   = new String[]{
                                          "Hold on! You have unsaved changes!",
                                          "Type 'save <filename>' to save your changes if you want to.",
-                                         "Otherwise, type 'bye /force' to exit without saving."};
+                                         "Otherwise, type 'bye force-quit' to exit without saving."};
     public static final String[] BYE_NO_SAVE       = new String[]{
                                                         "Discarding changes...",
                                                         "Bye. Hope to see you again soon!"};
-
     public static final String[] GREET             = new String[]{
                                                          "Hello! I'm Duke",
                                                          "What can I do for you?"};
     public static final String[] WARN_OVERWRITE    = new String[]{
                                                          "Are you sure? This will replace all your current tasks.",
-                                                         "If you're sure, type load <filename> /YES."};
+                                                         "If you're sure, type load <filename> /overwrite."};
 }

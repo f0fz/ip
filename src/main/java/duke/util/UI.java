@@ -6,11 +6,10 @@ package duke.util;
 public class UI {
     public final static String REPLY_BAR = "――――――――――――――――――――――――――――――――――――――――――";
     public final static String ERROR_BAR = "!――――――!――――――!――――――!――――――!――――――!――――――!";
-    public final static String DEBUG_BAR = "?――――――?――――――?――――――?――――――?――――――?――――――?";
+    public final static String DEBUG_BAR = "――――――――――――――?――――DEBUG――――?――――――――――――――";
 
     public final static String REPLY_INDENT = " >>> ";
-
-    public final static String DEBUG_HEADER = "Debugging...";
+    public final static String DEBUG_HEADER = "Stack trace here:";
 
     public final static char TICK = '\u2713';
     public final static char CROSS = '\u2717';
@@ -93,7 +92,7 @@ public class UI {
         }
 
         if (getDebugMode()) {
-            System.out.println(REPLY_INDENT + DEBUG_HEADER);
+            System.out.print(REPLY_INDENT + DEBUG_HEADER);
             e.printStackTrace();
         } else {
             System.out.println(REPLY_INDENT + e.getMessage());

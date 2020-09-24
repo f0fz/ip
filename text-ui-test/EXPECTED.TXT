@@ -151,14 +151,63 @@
 
 
 ――――――――――――――――――――――――――――――――――――――――――
- >>> Are you sure? This will replace all your current tasks.
- >>> If you're sure, type load <filename> /YES.
+ >>> Removed the task as requested:
+ >>> [D][✓] yee (by: Sun 02:34, 14 Jun 2020)
 ――――――――――――――――――――――――――――――――――――――――――
+
+
+!――――――!――――――!――――――!――――――!――――――!――――――!
+ >>> Command entered is invalid!
+ >>> delete command arguments not matching: <task ID> (task ID should be in range)
+!――――――!――――――!――――――!――――――!――――――!――――――!
+
+
+――――――――――――――――――――――――――――――――――――――――――
+ >>> Added: [E][✗] wowzer (at: Tue 06:54, 13 Oct 2020)
+ >>> Now you have 1 tasks.
+――――――――――――――――――――――――――――――――――――――――――
+
+
+――――――――――――――――――――――――――――――――――――――――――
+ >>> Toggled debug mode to: true
+――――――――――――――――――――――――――――――――――――――――――
+
+
+――――――――――――――?――――DEBUG――――?――――――――――――――
+ >>> Command breakdown:
+ >>> Command: load
+ >>> Arguments: [test, null, null, null, null, null, null, null, null, null]
+――――――――――――――?――――DEBUG――――?――――――――――――――
+
+
+――――――――――――――――――――――――――――――――――――――――――
+ >>> Are you sure? This will replace all your current tasks.
+ >>> If you're sure, type load <filename> /overwrite.
+――――――――――――――――――――――――――――――――――――――――――
+
+
+――――――――――――――?――――DEBUG――――?――――――――――――――
+ >>> Command breakdown:
+ >>> Command: load
+ >>> Arguments: [test, overwrite, null, null, null, null, null, null, null, null]
+――――――――――――――?――――DEBUG――――?――――――――――――――
 
 
 ――――――――――――――――――――――――――――――――――――――――――
  >>> Successfully loaded from save file!
  >>> Now you have 4 tasks.
+――――――――――――――――――――――――――――――――――――――――――
+
+
+――――――――――――――?――――DEBUG――――?――――――――――――――
+ >>> Command breakdown:
+ >>> Command: debug
+ >>> Arguments: [null, null, null, null, null, null, null, null, null, null]
+――――――――――――――?――――DEBUG――――?――――――――――――――
+
+
+――――――――――――――――――――――――――――――――――――――――――
+ >>> Toggled debug mode to: false
 ――――――――――――――――――――――――――――――――――――――――――
 
 
@@ -180,7 +229,7 @@
 ――――――――――――――――――――――――――――――――――――――――――
  >>> Hold on! You have unsaved changes!
  >>> Type 'save <filename>' to save your changes if you want to.
- >>> Otherwise, type 'bye /force' to exit without saving.
+ >>> Otherwise, type 'bye force-quit' to exit without saving.
 ――――――――――――――――――――――――――――――――――――――――――
 
 

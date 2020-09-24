@@ -19,8 +19,13 @@ delete 1
 list
 delete 2
 list
+delete 1
+delete 1
+event wowzer /at 13/10/2020 06:54
+debug
 load test
-load test /YES
+load test /overwrite
+debug
 list
 todo can't save /done
 bye

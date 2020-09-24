@@ -5,8 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import duke.message.errorMsg;
-import duke.message.replyMsg;
+import duke.constant.ErrorMsg;
+import duke.constant.ReplyMsg;
 
 import static duke.util.UI.error;
 
@@ -86,15 +86,15 @@ public class IO {
             // Make the data folder to save in if it doesn't already exist
             if (!(new File(DEFAULT_PATH)).exists()) {
                 (new File(DEFAULT_PATH)).mkdir();
-                UI.reply(replyMsg.SAVE_DIR_NOT_EXIST);
+                UI.reply(ReplyMsg.SAVE_DIR_NOT_EXIST);
             }
 
             // Create or overwrite the save file
             File mySaveFile = new File(pathName);
             if (!mySaveFile.exists()){
-                UI.reply(replyMsg.SAVE_CREATING_FILE);
+                UI.reply(ReplyMsg.SAVE_CREATING_FILE);
             } else {
-                UI.reply(replyMsg.SAVE_OVERWRITE_FILE);
+                UI.reply(ReplyMsg.SAVE_OVERWRITE_FILE);
                 mySaveFile.delete();
             }
             mySaveFile.createNewFile();
@@ -105,7 +105,7 @@ public class IO {
                 writeToFile(mySaveFile, eachLine);
             }
         } catch (IOException e) {
-            error(e, errorMsg.SAVE_FILE_ERROR + fileName + FILE_EXT);
+            error(e, ErrorMsg.SAVE_FILE_ERROR + fileName + FILE_EXT);
             return false;
         }
         return true;
@@ -118,7 +118,7 @@ public class IO {
     public static void showSaves() {
         String[] saveNames = (new File(DEFAULT_PATH)).list();
         if (saveNames.length == 0) {
-            UI.reply(replyMsg.SAVE_NONE_FOUND);
+            UI.reply(ReplyMsg.SAVE_NONE_FOUND);
             return;
         }
 
@@ -126,7 +126,7 @@ public class IO {
             saveNames[i] = saveNames[i].substring(0, saveNames[i].length() - FILE_EXT.length()); // cut out .txt
         }
 
-        String[] response = replyMsg.SAVE_LIST_SAVES;
+        String[] response = ReplyMsg.SAVE_LIST_SAVES;
         String[] finalResponse = new String[response.length + saveNames.length];
 
         // Concatenate the response and saveNames arrays to send to UI.reply

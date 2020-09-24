@@ -1,5 +1,8 @@
 package duke.util;
 
+import duke.constant.CommandStr;
+import duke.constant.ErrorMsg;
+
 /**
  * The static type ErrorChecker.
  *
@@ -45,50 +48,50 @@ public class ErrorChecker {
         switch(taskCmd.getCommand()) {
 
         // 1 argument (description) , 1 optional arguments (done)
-        case "todo":
+        case CommandStr.TODO_CMD:
             if (taskCmd.getArgCount() == 1) {
                 break;
             }
             if (taskCmd.getArgCount() == 2) {
-                if (taskCmd.getArgument(1).equals("done")) {
+                if (taskCmd.getArgument(1).equals(CommandStr.DONE_OPT)) {
                     break;
                 }
             }
-            throw new DukeException("Todos command argument not matching: description");
+            throw new DukeException(ErrorMsg.TODO_ERROR);
 
         // 2 arguments (description, by) , 1 optional arguments (done)
         // Validity of date 'by'
-        case "deadline":
+        case CommandStr.DEADLINE_CMD:
             if ((taskCmd.getArgCount() == 2)) {
-                if (taskCmd.getArgument(1).split(" ")[0].equals("by")) {
+                if (taskCmd.getArgument(1).split(" ")[0].equals(CommandStr.BY_ARG)) {
                     if (DateTime.checkValidDate(taskCmd.getArgument(1).substring(3))){
                         break;
                     }
                 }
             }
             if (taskCmd.getArgCount() == 3) {
-                if (taskCmd.getArgument(2).equals("done")) {
+                if (taskCmd.getArgument(2).equals(CommandStr.DONE_OPT)) {
                     break;
                 }
             }
-            throw new DukeException("Deadline command arguments not matching: description /by deadline");
+            throw new DukeException(ErrorMsg.DEADLINE_ERROR);
 
         // 2 arguments (description, at) , 1 optional arguments (done)
         // Validity of date 'at'
-        case "event":
+        case CommandStr.EVENT_CMD:
             if ((taskCmd.getArgCount() == 2)) {
-                if (taskCmd.getArgument(1).split(" ")[0].equals("at")) {
+                if (taskCmd.getArgument(1).split(" ")[0].equals(CommandStr.AT_ARG)) {
                     if (DateTime.checkValidDate(taskCmd.getArgument(1).substring(3))){
                         break;
                     }
                 }
             }
             if (taskCmd.getArgCount() == 3) {
-                if (taskCmd.getArgument(2).equals("done")) {
+                if (taskCmd.getArgument(2).equals(CommandStr.DONE_OPT)) {
                     break;
                 }
             }
-            throw new DukeException("Event command arguments not matching: description /at startToEnd");
+            throw new DukeException(ErrorMsg.EVENT_ERROR);
         default:
             break; // do nothing
         }
@@ -96,7 +99,7 @@ public class ErrorChecker {
 
     /**
      * Check an IO command for validity.
-     * Currently checks: save, load, showsaves
+     * Currently checks: save, load, show-saves
      *
      * @param cmd the command
      * @throws DukeException if the command is invalid
@@ -104,29 +107,28 @@ public class ErrorChecker {
     public static void checkSaveLoad(Command cmd) throws DukeException{
         switch(cmd.getCommand()) {
         // 1 argument, 0 optional arguments
-        case "save":
+        case CommandStr.SAVE_CMD:
             if (cmd.getArgCount() == 1) {
                 break;
             }
-            throw new DukeException("Save command arguments not matching: filename");
+            throw new DukeException(ErrorMsg.SAVE_ERROR);
 
         // 1 argument, 1 optional argument (YES)
-        case "load":
+        case CommandStr.LOAD_CMD:
             if (cmd.getArgCount() == 2){
-                if (cmd.getArgument(1).equals("YES")) {
+                if (cmd.getArgument(1).equals(CommandStr.OVERWRITE_OPT)) {
                     break;
                 }
             }
             if (cmd.getArgCount() == 1){
                 break;
             }
-            throw new DukeException("Load command arguments not matching: filename " +
-                                    "(for overwrite: filename /YES)");
-        case "showsaves":
+            throw new DukeException(ErrorMsg.LOAD_ERROR);
+        case CommandStr.SHOW_SAVE_CMD:
             if (cmd.getArgCount() == 0) {
                 break;
             }
-            throw new DukeException("ShowSaves command takes no arguments");
+            throw new DukeException(ErrorMsg.SHOW_SAVE_ERROR);
         default:
             break; // do nothing
         }
@@ -140,34 +142,33 @@ public class ErrorChecker {
      * @param taskCount the current task count
      * @throws DukeException if the command is invalid
      */
-// Checking: list, bye, done, delete
     public static void checkUtil(Command cmd, int taskCount) throws DukeException {
         switch(cmd.getCommand()) {
         // 0 arguments, 0 optional arguments
-        case "list":
+        case CommandStr.LIST_T_CMD:
             // FALLTHROUGH
-        case "debug":
+        case CommandStr.DEBUG_CMD:
             if (cmd.getArgCount() == 0) {
                 break;
             }
-            throw new DukeException(cmd.getCommand() + " command takes no arguments");
+            throw new DukeException(cmd.getCommand() + ErrorMsg.GENERIC_NO_ARG_ERROR);
 
         // 0 arguments, 1 optional argument (force)
-        case "bye":
+        case CommandStr.EXIT_CMD:
             if (cmd.getArgCount() == 0) {
                 break;
             }
             if (cmd.getArgCount() == 1) {
-                if (cmd.getArgument(0).equals("force")) {
+                if (cmd.getArgument(0).equals(CommandStr.F_QUIT_OPT)) {
                     break;
                 }
             }
-            throw new DukeException("Bye command takes no arguments (for force quit: /force)");
+            throw new DukeException(ErrorMsg.EXIT_ERROR);
 
-        // 1 argument (int), 0 optional arguments
-        case "done":
+        // 1 argument (int, task ID), 0 optional arguments
+        case CommandStr.DONE_T_CMD:
             // FALLTHROUGH
-        case "delete":
+        case CommandStr.DEL_T_CMD:
             if (cmd.getArgCount() == 1) {
                 if (isNumeric(cmd.getArgument(0))) {
                     int doneID = Integer.parseInt(cmd.getArgument(0));
@@ -176,14 +177,13 @@ public class ErrorChecker {
                     }
                 }
             }
-            throw new DukeException(cmd.getCommand() +
-                                    " command arguments not matching: <task ID> (task ID should be in range)");
+            throw new DukeException(cmd.getCommand() + ErrorMsg.GENERIC_INVALID_ID_ERROR);
         // 1 argument (string), 0 optional arguments
-        case "find":
+        case CommandStr.FIND_T_CMD:
             if (cmd.getArgCount() == 1) {
                 break;
             }
-            throw new DukeException("Find command takes no arguments");
+            throw new DukeException(ErrorMsg.FIND_ERROR);
         default:
             break; // do nothing
         }
