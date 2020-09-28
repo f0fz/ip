@@ -67,7 +67,7 @@ public class Duke {
      * The Command object, which stores information from the user in an accessible interface,
      * is then used to pass information to the switch statement that holds the command logic.
      *
-     * @param args the input arguments from the command line
+     * @param args the input arguments from the command line, if any
      */
     public static void main(String[] args) {
         UI.reply(ReplyMsg.GREET);
